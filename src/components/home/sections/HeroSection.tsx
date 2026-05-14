@@ -3,7 +3,9 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { CinematicBackdrop } from "@/components/visual/CinematicBackdrop";
 import { ChromeSpark } from "@/components/visual/ChromeSpark";
+import { EditorialPlumbobMark } from "@/components/visual/EditorialPlumbobMark";
 import { EditorialStillLife } from "@/components/visual/EditorialStillLife";
+import { HeroSignatureLayer } from "@/components/visual/HeroSignatureLayer";
 import { MagneticHover } from "@/components/interaction/MagneticHover";
 import { CINEMATIC_EASE } from "@/lib/editorial-motion";
 
@@ -24,18 +26,21 @@ export function HeroSection({
   return (
     <section
       id="home"
-      className="paper-hero editorial-section-floor relative flex min-h-[min(100svh,56rem)] overflow-hidden pb-16 pt-24 md:items-center md:min-h-[100svh] md:pb-20 md:pt-20"
+      className="paper-hero editorial-section-floor relative flex min-h-[min(100svh,58rem)] overflow-hidden pb-16 pt-24 md:items-center md:min-h-[100svh] md:pb-20 md:pt-20"
     >
       <CinematicBackdrop />
+      <HeroSignatureLayer />
+      <EditorialPlumbobMark className="absolute right-[2%] top-[10%] z-[6] hidden lg:right-[5%] lg:top-[12%] lg:block" />
+      <EditorialPlumbobMark className="absolute right-1 top-[9%] z-[6] scale-[0.52] lg:hidden" />
 
-      <div className="pointer-events-none absolute left-[2%] top-[22%] hidden select-none md:block" aria-hidden>
+      <div className="pointer-events-none absolute left-[2%] top-[22%] z-[4] hidden select-none md:block" aria-hidden>
         <p className="editorial-watermark-xl text-[clamp(5rem,22vw,14rem)]">01</p>
         <p className="mt-3 max-w-[8rem] font-display text-[7px] font-semibold uppercase leading-relaxed tracking-[0.38em] text-[#8a8076]/50">
           night issue — digital only
         </p>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-10">
+      <div className="relative z-20 mx-auto w-full max-w-7xl border-t border-[rgba(216,221,232,0.45)] px-5 pt-6 md:px-10 md:pt-8">
         <div className="relative grid items-end gap-10 md:grid-cols-12 md:gap-8 md:pb-6">
           {/* Cover type — left rail */}
           <div className="relative md:col-span-7">
@@ -67,7 +72,15 @@ export function HeroSection({
               Fashion issue / Sims world →
             </motion.p>
 
-            <div className="relative -mx-1 overflow-hidden px-1 md:-mx-2 md:px-2">
+            <div className="relative -mx-1 overflow-visible px-1 md:-mx-2 md:flex md:items-start md:gap-3 md:px-2">
+              <span
+                aria-hidden
+                className="mb-2 hidden shrink-0 pt-[0.15em] font-display text-[clamp(0.65rem,1.1vw,0.72rem)] font-semibold uppercase leading-[1.15] tracking-[0.42em] text-[#7a1528]/55 md:block"
+                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              >
+                cover story
+              </span>
+              <div className="relative min-w-0 flex-1">
               <motion.h1
                 className="font-display relative z-10 text-[clamp(3.6rem,14vw,9.5rem)] font-medium leading-[0.88] tracking-[-0.04em] text-[#1f1b18]"
                 initial={reduce ? false : { opacity: 0, y: 22 }}
@@ -99,6 +112,16 @@ export function HeroSection({
               >
                 vol. I — digital
               </motion.p>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -bottom-3 left-[8%] z-[5] hidden h-10 w-24 opacity-[0.12] mix-blend-multiply md:block"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, rgba(42,38,34,0.4) 0.45px, transparent 0.45px), radial-gradient(circle, rgba(122,21,40,0.12) 0.35px, transparent 0.35px)",
+                  backgroundSize: "10px 10px, 7px 7px",
+                }}
+              />
+              </div>
             </div>
 
             <motion.p
@@ -183,19 +206,23 @@ export function HeroSection({
               />
             </div>
             <motion.div
-              className="paper-edge relative z-10 min-h-[280px] rounded-[1.25rem] border border-[rgba(90,82,74,0.12)] bg-[linear-gradient(145deg,rgba(255,252,248,0.95)_0%,rgba(240,228,232,0.35)_42%,rgba(235,226,214,0.9)_100%)] shadow-[0_32px_80px_rgba(42,38,34,0.12),0_2px_0_rgba(255,255,255,0.8)_inset] md:-translate-x-6 md:min-h-[min(52vh,500px)] md:translate-y-8 md:rotate-[0.35deg]"
+              className="paper-edge hero-cover-flash relative z-10 min-h-[280px] rounded-[1.25rem] border border-[rgba(90,82,74,0.12)] bg-[linear-gradient(145deg,rgba(255,252,248,0.95)_0%,rgba(240,228,232,0.35)_42%,rgba(235,226,214,0.9)_100%)] shadow-[0_32px_80px_rgba(42,38,34,0.12),0_2px_0_rgba(255,255,255,0.8)_inset] md:-translate-x-6 md:min-h-[min(52vh,500px)] md:translate-y-8 md:rotate-[0.35deg]"
               whileHover={reduce ? undefined : { y: -5, rotate: -0.55 }}
               transition={{ duration: 0.42, ease: CINEMATIC_EASE }}
               aria-hidden
             >
               <div className="absolute inset-0 rounded-[1.25rem] bg-[radial-gradient(ellipse_80%_55%_at_30%_25%,rgba(255,252,248,0.95),transparent_62%),radial-gradient(ellipse_50%_40%_at_90%_80%,rgba(122,21,40,0.06),transparent_58%)]" />
               <div
+                className="absolute right-0 top-0 z-[3] h-24 w-24 rounded-bl-[1.25rem] bg-[radial-gradient(circle_at_80%_20%,rgba(255,252,248,0.9),transparent_55%)] opacity-70 mix-blend-screen"
+                aria-hidden
+              />
+              <div
                 className="absolute inset-0 rounded-[1.25rem] opacity-[0.18] mix-blend-multiply"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")`,
                 }}
               />
-              <div className="relative z-[1] p-5 md:p-7">
+              <div className="relative z-[4] p-5 md:p-7">
                 <EditorialStillLife
                   seed={0}
                   variant="window"

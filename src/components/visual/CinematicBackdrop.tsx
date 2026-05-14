@@ -7,7 +7,7 @@ export function CinematicBackdrop() {
   const reduce = useReducedMotion();
 
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_65%_at_18%_15%,rgba(255,252,248,0.92),transparent_58%),radial-gradient(ellipse_70%_55%_at_92%_8%,rgba(245,228,232,0.26),transparent_52%),radial-gradient(ellipse_90%_60%_at_60%_100%,rgba(235,226,214,0.55),transparent_52%),linear-gradient(180deg,#fffdf9_0%,#f3ece3_50%,#e8dfd3_100%)]" />
       {!reduce && (
         <>

@@ -479,3 +479,22 @@ body {
     0 0 0 6px rgba(255, 252, 248, 0.06),
     0 22px 55px rgba(42, 38, 34, 0.12);
 }
+
+/* Hero cover sheet — flash hotspot on editorial still */
+.hero-cover-flash::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 1;
+  background: radial-gradient(ellipse 65% 40% at 72% 18%, rgba(255, 252, 248, 0.72) 0%, transparent 52%);
+  mix-blend-mode: soft-light;
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cover-flash::before {
+    opacity: 0.55;
+  }
+}
