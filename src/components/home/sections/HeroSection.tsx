@@ -129,7 +129,7 @@ export function HeroSection({
               aria-hidden
             >
               <span className="block rounded-sm border border-[rgba(122,21,40,0.22)] bg-[rgba(255,252,248,0.88)] px-2.5 py-2 font-[var(--font-caveat),cursive] text-[1.05rem] leading-snug text-[#7a1528]/88 shadow-[0_14px_36px_rgba(42,38,34,0.1)]">
-                girlhood archive — open in another tab
+                editorial frame — copy lives in site.ts
               </span>
             </motion.p>
 

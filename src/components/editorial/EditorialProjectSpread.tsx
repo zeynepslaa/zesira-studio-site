@@ -155,9 +155,9 @@ const SCRAP_OVERLAYS = [
   "not for the timeline",
   "still buffering emotionally",
   "one more CAS pass",
-  "Tartosa in the tab bar",
-  "Willow Creek at 2AM",
-  "girlhood as a file format",
+  "tabs open like proofs",
+  "midnight color pass",
+  "layout as moodboard",
   "obsessively curated",
   "unnecessary but beautiful",
 ];

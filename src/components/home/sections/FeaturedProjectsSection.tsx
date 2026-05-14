@@ -61,11 +61,11 @@ export function FeaturedProjectsSection({ projects }: { projects: ProjectItem[] 
               <span className="mt-1 block pl-[min(10vw,6.5rem)] text-[#7a1528]/[0.92] md:pl-[min(14vw,10rem)]">works</span>
             </h2>
             <p className="mt-10 max-w-lg font-serif text-[1.05rem] font-light leading-[1.65] text-[#5c534c] md:mt-12 md:max-w-xl md:text-[1.15rem]">
-              A living archive—apps, systems, and experiments released with editorial patience. Each spread is its own
-              campaign, not a product tile.
+              Apps, systems, and experiments released with editorial patience. Each spread is pacing and composition—not a
+              product tile.
             </p>
             <p className="mt-5 max-w-sm font-display text-[8px] font-semibold uppercase tracking-[0.38em] text-[#8a8076]/90">
-              Margins hold gossip — captions are half the story
+              Type rhythm carries the frame
             </p>
           </motion.div>
         </div>

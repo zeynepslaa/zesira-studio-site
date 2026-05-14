@@ -32,9 +32,11 @@ function SpreadVisual({ spread, seed }: { spread: HouseholdSpread; seed: number 
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[rgba(42,38,34,0.12)] via-transparent to-[rgba(255,252,248,0.15)]" />
         </div>
-        <p className="absolute bottom-2 left-0 right-0 text-center font-display text-[7px] font-semibold uppercase tracking-[0.34em] text-[#8a8076]">
-          {spread.stamp ?? "archive still"}
-        </p>
+        {spread.stamp?.trim() ? (
+          <p className="absolute bottom-2 left-0 right-0 text-center font-display text-[7px] font-semibold uppercase tracking-[0.34em] text-[#8a8076]">
+            {spread.stamp}
+          </p>
+        ) : null}
       </div>
     );
   }
@@ -43,7 +45,7 @@ function SpreadVisual({ spread, seed }: { spread: HouseholdSpread; seed: number 
     <EditorialStillLife
       seed={seed}
       variant="polaroid"
-      caption={`${spread.name} — add imageSrc in site.ts`}
+      caption="Add imageSrc in site.ts"
     />
   );
 }
@@ -53,38 +55,40 @@ function CharacterSpread({ spread, index }: { spread: HouseholdSpread; index: nu
   const layout = spread.layout ?? (index % 2 === 0 ? "left" : "right");
   const isCenter = layout === "center";
 
-  const feeling = (
-    <div>
-      <p className="font-display text-[8px] font-semibold uppercase tracking-[0.36em] text-[#7a1528]/80">Currently feeling</p>
-      <ul className="mt-3 flex flex-wrap gap-2">
-        {spread.currentlyFeeling.map((m) => (
-          <li
-            key={m}
-            className="rounded-full border border-[rgba(122,21,40,0.15)] bg-[rgba(255,252,248,0.65)] px-3 py-1 font-serif text-[0.78rem] font-light italic text-[#5c534c]"
-          >
-            {m}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  const feeling =
+    spread.currentlyFeeling.length > 0 ? (
+      <div>
+        <p className="font-display text-[8px] font-semibold uppercase tracking-[0.36em] text-[#7a1528]/80">Currently feeling</p>
+        <ul className="mt-3 flex flex-wrap gap-2">
+          {spread.currentlyFeeling.map((m) => (
+            <li
+              key={m}
+              className="rounded-full border border-[rgba(122,21,40,0.15)] bg-[rgba(255,252,248,0.65)] px-3 py-1 font-serif text-[0.78rem] font-light italic text-[#5c534c]"
+            >
+              {m}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : null;
 
-  const diary = (
-    <div className="space-y-4">
-      {spread.diaryFragments.map((d, i) => (
-        <motion.p
-          key={i}
-          className="ripped-tape-red relative bg-[rgba(255,252,248,0.88)] px-4 py-3 font-serif text-[0.92rem] font-light leading-[1.65] text-[#4a433c] shadow-[0_10px_28px_rgba(42,38,34,0.05)]"
-          initial={reduce ? false : { opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-5% 0px" }}
-          transition={{ duration: 0.75, delay: reduce ? 0 : i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {d}
-        </motion.p>
-      ))}
-    </div>
-  );
+  const diary =
+    spread.diaryFragments.length > 0 ? (
+      <div className="space-y-4">
+        {spread.diaryFragments.map((d, i) => (
+          <motion.p
+            key={i}
+            className="ripped-tape-red relative bg-[rgba(255,252,248,0.88)] px-4 py-3 font-serif text-[0.92rem] font-light leading-[1.65] text-[#4a433c] shadow-[0_10px_28px_rgba(42,38,34,0.05)]"
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5% 0px" }}
+            transition={{ duration: 0.75, delay: reduce ? 0 : i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {d}
+          </motion.p>
+        ))}
+      </div>
+    ) : null;
 
   const meta = (
     <div className="mt-8 space-y-3 border-t border-[rgba(90,82,74,0.1)] pt-6">
@@ -136,12 +140,12 @@ function CharacterSpread({ spread, index }: { spread: HouseholdSpread; index: nu
       >
         <div className="pointer-events-none absolute left-1/2 top-8 hidden w-[min(88vw,52rem)] -translate-x-1/2 md:block">
           <div className="absolute -left-[8%] top-[20%] w-[38%] opacity-90">
-            <EditorialStillLife seed={index + 20} variant="collage" caption="forgotten screenshot layer" />
+            <EditorialStillLife seed={index + 20} variant="collage" caption="collage atmosphere" />
           </div>
         </div>
         <div className="relative z-10 mx-auto max-w-2xl text-center">
           {titleBlock}
-          <div className="mt-10">{feeling}</div>
+          {feeling ? <div className="mt-10">{feeling}</div> : null}
         </div>
         <div className="relative z-10 mx-auto mt-12 grid max-w-5xl gap-10 md:grid-cols-2 md:items-start">
           <div className="mx-auto w-full max-w-sm md:mx-0 md:max-w-none">
@@ -167,8 +171,8 @@ function CharacterSpread({ spread, index }: { spread: HouseholdSpread; index: nu
   const copy = (
     <div className={imgFirst ? "" : "md:ml-auto md:max-w-xl md:text-right"}>
       {titleBlock}
-      <div className={`mt-8 ${imgFirst ? "" : "md:flex md:flex-col md:items-end"}`}>{feeling}</div>
-      <div className={`mt-10 ${imgFirst ? "" : "md:text-left"}`}>{diary}</div>
+      {feeling ? <div className={`mt-8 ${imgFirst ? "" : "md:flex md:flex-col md:items-end"}`}>{feeling}</div> : null}
+      {diary ? <div className={`mt-10 ${imgFirst ? "" : "md:text-left"}`}>{diary}</div> : null}
       <div className={imgFirst ? "" : "md:flex md:flex-col md:items-end"}>{meta}</div>
     </div>
   );

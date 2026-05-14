@@ -107,7 +107,7 @@ export type LivingArchive = {
   plates?: LivingArchivePlate[];
 };
 
-/** Fake “desktop” status — immersion only, no real backend */
+/** Editorial “desktop” frame — copy only; wire real data when you have it */
 export type FloatingSystems = {
   renderingLabel: string;
   renderingPercent: number;
@@ -118,12 +118,12 @@ export type FloatingSystems = {
   archiveRecoveredLine?: string;
 };
 
-/** One character / folder “spread” in Current Household — add `imageSrc` when you drop assets in /public */
+/** One household spread in Current Household — add `imageSrc` when assets live in /public */
 export type HouseholdSpread = {
   id: string;
   name: string;
   stamp?: string;
-  /** e.g. `/household/amanda.png` in `public/household/` */
+  /** e.g. `/household/render.png` in `public/household/` */
   imageSrc?: string;
   imageAlt?: string;
   currentlyFeeling: string[];
@@ -140,7 +140,7 @@ export type HouseholdUniverse = {
   title: string;
   subtitle: string;
   intro: string;
-  /** Folder tabs — optional `href` (e.g. #household-amanda) */
+  /** Folder tabs — optional `href` (e.g. #household-slot) */
   archiveFolders: { id: string; label: string; note?: string; href?: string }[];
   characters: HouseholdSpread[];
 };
