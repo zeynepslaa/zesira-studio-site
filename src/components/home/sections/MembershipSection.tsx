@@ -1,13 +1,73 @@
 "use client";
 
+import { FormEvent, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { MembershipTier } from "@/content/types";
 
 export function MembershipSection({ intro, tiers }: { intro: string; tiers: MembershipTier[] }) {
   const reduce = useReducedMotion();
+  const [mode, setMode] = useState<"login" | "register">("register");
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [memberEmail, setMemberEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch("/api/auth/me", { cache: "no-store" });
+      const data = (await res.json()) as { user: { email: string } | null };
+      setMemberEmail(data.user?.email ?? null);
+    };
+    void fetchUser();
+  }, []);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const endpoint = mode === "register" ? "/api/auth/register" : "/api/auth/login";
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = (await response.json()) as { error?: string; user?: { email: string } };
+
+      if (!response.ok) {
+        setMessage(data.error ?? "Bir hata oldu, tekrar dene.");
+        return;
+      }
+
+      setMemberEmail(data.user?.email ?? email);
+      setPassword("");
+      setMessage(mode === "register" ? "Üyelik oluşturuldu." : "Giriş yapıldı.");
+      window.location.href = "/members";
+    } catch {
+      setMessage("Sunucuya bağlanırken hata oldu.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleLogout() {
+    setLoading(true);
+    setMessage("");
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      setMemberEmail(null);
+      setMessage("Çıkış yapıldı.");
+    } catch {
+      setMessage("Çıkış yapılamadı, tekrar dene.");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <section id="membership" className="paper-section-2 relative scroll-mt-28 py-28 md:py-40">
+    <section id="membership" className="paper-section-2 editorial-section-floor relative scroll-mt-28 py-16 md:py-28">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <motion.div
           className="max-w-3xl"
@@ -24,11 +84,11 @@ export function MembershipSection({ intro, tiers }: { intro: string; tiers: Memb
           <p className="mt-10 font-serif text-[1.05rem] font-light leading-[1.65] text-[#5c534c] md:text-[1.1rem]">{intro}</p>
         </motion.div>
 
-        <div className="mt-12 md:mt-16">
+        <div className="mt-9 md:mt-12">
           {tiers.map((tier, i) => (
             <motion.div
               key={tier.id}
-              className={`relative grid gap-10 border-t border-[rgba(90,82,74,0.12)] py-14 md:grid-cols-12 md:items-end md:gap-8 md:py-20 ${
+              className={`relative grid gap-10 border-t border-[rgba(90,82,74,0.12)] py-10 md:grid-cols-12 md:items-end md:gap-8 md:py-14 ${
                 tier.highlighted ? "bg-[radial-gradient(ellipse_80%_120%_at_0%_50%,rgba(122,21,40,0.06),transparent_55%)] px-4 md:-mx-4 md:px-8" : ""
               }`}
               initial={reduce ? false : { opacity: 0, y: 20 }}
@@ -73,6 +133,91 @@ export function MembershipSection({ intro, tiers }: { intro: string; tiers: Memb
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          className="mt-12 border-t border-[rgba(90,82,74,0.12)] pt-8"
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10% 0px" }}
+          transition={{ duration: reduce ? 0 : 0.7 }}
+        >
+          <h3 className="font-display text-[clamp(1.55rem,3.4vw,2.4rem)] tracking-[-0.02em] text-[#1f1b18]">
+            Member portal
+          </h3>
+          {memberEmail ? (
+            <div className="mt-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <p className="font-serif text-[1rem] text-[#5c534c]">
+                Hoş geldin, <span className="text-[#7a1528]">{memberEmail}</span>. Üye alanın aktif.
+              </p>
+              <div className="flex gap-4">
+                <a
+                  href="/members"
+                  className="inline-flex items-center justify-center border-b border-[#7a1528] px-1 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#7a1528] transition hover:border-[#5c0f1f] hover:text-[#5c0f1f]"
+                >
+                  Üye alanı
+                </a>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  disabled={loading}
+                  className="inline-flex items-center justify-center border-b border-[rgba(90,82,74,0.28)] px-1 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#2a2622] transition hover:border-[#7a1528]/40 hover:text-[#7a1528] disabled:opacity-60"
+                >
+                  Çıkış yap
+                </button>
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="mt-6 grid gap-4 md:max-w-xl">
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setMode("register")}
+                  className={`px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] ${
+                    mode === "register" ? "border-b-2 border-[#7a1528] text-[#7a1528]" : "text-[#7a6f66]"
+                  }`}
+                >
+                  Üye ol
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMode("login")}
+                  className={`px-3 py-2 text-[10px] font-semibold uppercase tracking-[0.28em] ${
+                    mode === "login" ? "border-b-2 border-[#7a1528] text-[#7a1528]" : "text-[#7a6f66]"
+                  }`}
+                >
+                  Giriş yap
+                </button>
+              </div>
+
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+                required
+                className="border border-[rgba(90,82,74,0.22)] bg-transparent px-4 py-3 text-sm text-[#2a2622] outline-none placeholder:text-[#8a8076] focus:border-[#7a1528]/45"
+              />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Şifre"
+                minLength={6}
+                required
+                className="border border-[rgba(90,82,74,0.22)] bg-transparent px-4 py-3 text-sm text-[#2a2622] outline-none placeholder:text-[#8a8076] focus:border-[#7a1528]/45"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                className="inline-flex items-center justify-center border-b-2 border-[#7a1528] px-2 py-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#7a1528] transition hover:border-[#5c0f1f] hover:text-[#5c0f1f] disabled:opacity-60"
+              >
+                {loading ? "Yükleniyor…" : mode === "register" ? "Hesap aç" : "Giriş yap"}
+              </button>
+            </form>
+          )}
+
+          {message ? <p className="mt-4 text-sm text-[#7a1528]">{message}</p> : null}
+        </motion.div>
       </div>
     </section>
   );

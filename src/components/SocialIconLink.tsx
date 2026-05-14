@@ -50,12 +50,12 @@ export function SocialIconLink({ link }: { link: SocialLink }) {
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex h-12 w-12 items-center justify-center rounded-full border border-[rgba(90,82,74,0.14)] bg-[#fffcf7]/95 text-[#4a433d] shadow-[0_10px_28px_rgba(42,38,34,0.06)] backdrop-blur-sm transition duration-500 hover:border-[rgba(122,21,40,0.28)] hover:bg-white hover:text-[#7a1528] hover:shadow-[0_14px_36px_rgba(122,21,40,0.1)]"
+      className="group/social flex h-12 w-12 items-center justify-center rounded-full border border-[rgba(90,82,74,0.14)] bg-[#fffcf7]/95 text-[#4a433d] shadow-[0_10px_28px_rgba(42,38,34,0.06)] backdrop-blur-sm transition-[border-color,background-color,color,box-shadow,transform] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-[rgba(122,21,40,0.28)] hover:bg-white hover:text-[#7a1528] hover:shadow-[0_18px_44px_rgba(122,21,40,0.09)]"
       aria-label={link.label}
     >
       <Icon
         kind={link.icon}
-        className="h-5 w-5 transition duration-500 group-hover:scale-105 group-hover:drop-shadow-[0_0_6px_rgba(122,21,40,0.2)]"
+        className="h-5 w-5 transition-[transform,filter] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/social:translate-y-[-1px] group-hover/social:drop-shadow-[0_0_8px_rgba(122,21,40,0.18)]"
       />
     </a>
   );

@@ -2,17 +2,36 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ChromeSpark } from "@/components/visual/ChromeSpark";
+import { CINEMATIC_EASE } from "@/lib/editorial-motion";
 
-export function EditorialInterlude({ text }: { text?: string }) {
+type Rhythm = 0 | 1 | 2;
+
+export function EditorialInterlude({ text, rhythm = 0 }: { text?: string; rhythm?: Rhythm }) {
   const reduce = useReducedMotion();
   const t = text?.trim();
   if (!t) return null;
 
+  const py = rhythm === 1 ? "py-8 md:py-10" : rhythm === 2 ? "py-10 md:py-14" : "py-7 md:py-11";
+  const textWrap =
+    rhythm === 1
+      ? "max-w-xl px-2 text-left md:ml-[min(8vw,4rem)] md:max-w-lg"
+      : rhythm === 2
+        ? "max-w-md px-2 text-right md:ml-auto md:mr-[min(6vw,3rem)] md:max-w-lg"
+        : "max-w-lg px-2 text-center md:max-w-2xl";
+
+  const textRhythmClass =
+    rhythm === 0
+      ? "-rotate-[0.35deg] md:translate-x-[2px]"
+      : rhythm === 1
+        ? "rotate-[0.48deg] md:-translate-x-[4px]"
+        : "-rotate-[0.32deg] md:translate-x-1";
+
   return (
-    <div className="relative py-10 md:py-16">
-      {/* Collage-adjacent density: soft stickers + ballet wash — still one column rhythm */}
+    <div className={`relative ${py}`}>
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <span className="hand-placed-nudge absolute -right-2 top-[18%] hidden font-[var(--font-caveat),cursive] text-[0.95rem] text-[#f3d9e4]/90 md:right-[6%] md:block lg:right-[10%]">
+        <span
+          className="hand-placed-nudge absolute -right-2 top-[18%] hidden font-[var(--font-caveat),cursive] text-[0.95rem] text-[#f3d9e4]/90 md:right-[6%] md:block lg:right-[10%]"
+        >
           saved to camera roll ♡
         </span>
         <span
@@ -27,12 +46,28 @@ export function EditorialInterlude({ text }: { text?: string }) {
         >
           pin → keep
         </span>
+        {rhythm === 1 ? (
+          <span
+            className="hand-placed-nudge absolute bottom-[12%] left-[8%] hidden max-w-[10rem] font-serif text-[0.72rem] font-light italic leading-snug text-[#7a6f66]/85 md:block"
+            style={{ ["--hand-rotate" as string]: "-3deg" }}
+          >
+            perfume ad silence, but digital
+          </span>
+        ) : null}
+        {rhythm === 2 ? (
+          <span
+            className="hand-placed-nudge absolute right-[12%] top-[12%] hidden font-display text-[clamp(2.5rem,8vw,4.5rem)] font-medium leading-none text-[#ebe4dc]/80 md:block"
+            aria-hidden
+          >
+            ✶
+          </span>
+        ) : null}
       </div>
 
-      <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-5 px-6 md:max-w-4xl md:px-10">
-        <div className="flex w-full items-center gap-3 md:gap-4">
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-5 px-6 md:px-10">
+        <div className={`flex w-full items-center gap-3 md:gap-4 ${rhythm === 2 ? "flex-row-reverse" : ""}`}>
           <span className="font-[var(--font-caveat),cursive] text-lg text-[#7a1528]/50" aria-hidden>
-            →
+            {rhythm === 2 ? "←" : "→"}
           </span>
           <div className="h-px flex-1 bg-gradient-to-r from-[#d9d0c4] via-[#f3d9e4]/45 to-transparent" />
           <div className="flex items-center gap-2 opacity-75">
@@ -42,16 +77,16 @@ export function EditorialInterlude({ text }: { text?: string }) {
           </div>
           <div className="h-px flex-1 bg-gradient-to-l from-[#d9d0c4] via-[#7a1528]/22 to-transparent" />
           <span className="font-[var(--font-caveat),cursive] text-lg text-[#7a1528]/50" aria-hidden>
-            ←
+            {rhythm === 2 ? "→" : "←"}
           </span>
         </div>
 
         <motion.div
-          className="max-w-lg px-2 text-center md:max-w-2xl"
+          className={`mx-auto w-full ${textWrap} ${textRhythmClass}`}
           initial={reduce ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-5% 0px" }}
-          transition={{ duration: reduce ? 0 : 0.75, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: reduce ? 0 : 1, ease: CINEMATIC_EASE }}
         >
           <p className="font-serif text-[0.9rem] font-light italic leading-relaxed tracking-[0.03em] text-[#6e655c] md:text-[0.97rem]">
             {t}

@@ -63,6 +63,88 @@ export type SocialLink = {
   icon: "patreon" | "pinterest" | "tumblr" | "tiktok";
 };
 
+export type VaultItem = {
+  id: string;
+  title: string;
+  type: "cc" | "mod" | "save-file";
+  note: string;
+  membersOnly: boolean;
+  href?: string;
+};
+
+/** Fixed / corner internet-life captions — `className` = Tailwind position utilities */
+export type AmbientSticker = {
+  id: string;
+  text: string;
+  className: string;
+  /** subtle rotate in degrees, applied via style */
+  rotate?: number;
+};
+
+/** Fixed margin fragments — “living archive” human traces */
+export type LivingArchiveMote = {
+  id: string;
+  text: string;
+  className: string;
+  rotate?: number;
+};
+
+export type LivingArchiveCard = {
+  id: string;
+  title: string;
+  lines: string[];
+};
+
+/** Optional stills — drop files under `public/editorial/` and list here */
+export type LivingArchivePlate = {
+  src: string;
+  alt: string;
+};
+
+export type LivingArchive = {
+  motes: LivingArchiveMote[];
+  cards: LivingArchiveCard[];
+  plates?: LivingArchivePlate[];
+};
+
+/** Fake “desktop” status — immersion only, no real backend */
+export type FloatingSystems = {
+  renderingLabel: string;
+  renderingPercent: number;
+  tonightTitle: string;
+  tonightItems: string[];
+  recentlySaved: string[];
+  lastOpened: string;
+  archiveRecoveredLine?: string;
+};
+
+/** One character / folder “spread” in Current Household — add `imageSrc` when you drop assets in /public */
+export type HouseholdSpread = {
+  id: string;
+  name: string;
+  stamp?: string;
+  /** e.g. `/household/amanda.png` in `public/household/` */
+  imageSrc?: string;
+  imageAlt?: string;
+  currentlyFeeling: string[];
+  diaryFragments: string[];
+  timestamps?: string[];
+  relationshipHints?: string[];
+  playlistMood?: string;
+  /** Visual rhythm: alternate compositions */
+  layout?: "left" | "right" | "center";
+};
+
+export type HouseholdUniverse = {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  intro: string;
+  /** Folder tabs — optional `href` (e.g. #household-amanda) */
+  archiveFolders: { id: string; label: string; note?: string; href?: string }[];
+  characters: HouseholdSpread[];
+};
+
 /** Sparse micro-copy placed between sections & moments — edit in `site.ts` */
 export type EditorialWhispers = {
   loaderLine: string;
@@ -116,6 +198,18 @@ export type SiteContent = {
     intro: string;
     tiers: MembershipTier[];
   };
+  vault: {
+    intro: string;
+    items: VaultItem[];
+  };
+  /** Living archive — current saves, girls, moods (expand with your screenshots) */
+  household: HouseholdUniverse;
+  /** Corner stickers + timestamps */
+  ambientStickers: AmbientSticker[];
+  /** Fake render / file / tonight lists */
+  floatingSystems: FloatingSystems;
+  /** Human traces, studio logs, margin fragments — living archive layer */
+  livingArchive: LivingArchive;
   contact: {
     line: string;
     email: string;

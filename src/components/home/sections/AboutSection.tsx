@@ -1,6 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { EditorialStillLife } from "@/components/visual/EditorialStillLife";
+import { CINEMATIC_EASE } from "@/lib/editorial-motion";
 
 export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragraphs: string[] }) {
   const reduce = useReducedMotion();
@@ -8,15 +10,30 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
   return (
     <section
       id="about"
-      className="paper-section-1 relative scroll-mt-28 border-t border-[rgba(90,82,74,0.1)] py-28 md:py-40"
+      className="paper-section-1 editorial-section-floor relative scroll-mt-28 border-t border-[rgba(90,82,74,0.1)] py-14 md:py-22"
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] md:items-start md:gap-16">
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <span
+          className="hand-placed-nudge absolute bottom-[12%] left-[4%] hidden font-display text-[clamp(4rem,18vw,9rem)] font-medium leading-none text-[#ebe4dc]/80 md:block"
+          style={{ ["--hand-rotate" as string]: "-6deg" }}
+        >
+          II
+        </span>
+        <span
+          className="hand-placed-nudge absolute right-[8%] top-[14%] hidden max-w-[11rem] font-serif text-[0.78rem] font-light italic leading-relaxed text-[#7a1528]/35 md:block"
+          style={{ ["--hand-rotate" as string]: "4deg" }}
+        >
+          girlhood rendered in pixels — gloss, grain, quiet obsession
+        </span>
+      </div>
+      <div className="relative mx-auto max-w-7xl px-6 md:px-10">
+        <div className="grid gap-10 md:grid-cols-12 md:items-start md:gap-8 lg:gap-10">
           <motion.div
+            className="md:col-span-5"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: reduce ? 0 : 0.75 }}
+            transition={{ duration: reduce ? 0 : 1.05, ease: CINEMATIC_EASE }}
           >
             <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#7a6f66]">{eyebrow}</p>
             <h2 className="mt-5 font-display text-[clamp(2.35rem,6.5vw,4.35rem)] font-medium leading-[1.02] tracking-[-0.025em] text-[#1f1b18]">
@@ -25,18 +42,39 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
                 to moonlight hours
               </span>
             </h2>
+            <p className="mt-8 max-w-xs font-display text-[9px] font-semibold uppercase leading-relaxed tracking-[0.36em] text-[#8a8076]">
+              satin melancholy / perfume silence / tabs left open like altars
+            </p>
           </motion.div>
+
           <motion.div
-            className="space-y-6 border-l border-[rgba(122,21,40,0.12)] pl-6 text-base leading-relaxed text-[#5c534c] md:pl-10 md:text-lg"
+            className="space-y-6 border-l border-[rgba(122,21,40,0.12)] pl-6 text-base leading-relaxed text-[#5c534c] md:col-span-4 md:pl-10 md:text-lg"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px" }}
-            transition={{ duration: reduce ? 0 : 0.75, delay: reduce ? 0 : 0.08 }}
+            transition={{ duration: reduce ? 0 : 1.05, delay: reduce ? 0 : 0.12, ease: CINEMATIC_EASE }}
           >
             {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
+              <motion.p
+                key={i}
+                initial={reduce ? false : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-8% 0px" }}
+                transition={{ duration: reduce ? 0 : 0.95, delay: reduce ? 0 : 0.14 + i * 0.1, ease: CINEMATIC_EASE }}
+              >
+                {p}
+              </motion.p>
             ))}
           </motion.div>
+
+          <div className="md:col-span-3 md:pt-4">
+            <EditorialStillLife
+              seed={4}
+              variant="collage"
+              caption="tear sheet — scanned edges kept"
+              className="md:-translate-y-2"
+            />
+          </div>
         </div>
       </div>
     </section>

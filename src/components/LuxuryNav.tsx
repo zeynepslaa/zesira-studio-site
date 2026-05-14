@@ -29,8 +29,8 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
       <div
         className={`mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border px-5 py-3 transition-[background,border-color,box-shadow] duration-500 md:px-8 ${
           scrolled
-            ? "border-[rgba(90,82,74,0.22)] bg-[rgba(255,252,248,0.82)] shadow-[0_12px_40px_rgba(42,38,34,0.08)] backdrop-blur-2xl"
-            : "border-[rgba(90,82,74,0.14)] bg-[rgba(255,252,248,0.58)] backdrop-blur-xl"
+            ? "border-[rgba(90,82,74,0.22)] bg-[rgba(255,252,248,0.94)] shadow-[0_12px_40px_rgba(42,38,34,0.08)]"
+            : "border-[rgba(90,82,74,0.14)] bg-[rgba(255,252,248,0.88)] shadow-[0_8px_28px_rgba(42,38,34,0.04)]"
         }`}
       >
         <a
@@ -44,15 +44,17 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
           />
         </a>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Primary">
           {items.map((item) => (
-            <a
+            <motion.a
               key={item.href}
               href={item.href}
-              className="text-[10px] font-semibold uppercase tracking-[0.26em] text-[#5c534c] transition duration-500 hover:text-[#7a1528]"
+              whileHover={reduce ? undefined : { y: -0.5, opacity: 0.92 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="nav-editorial-link text-[10px] font-semibold uppercase tracking-[0.28em] text-[#5c534c]"
             >
               {item.label}
-            </a>
+            </motion.a>
           ))}
         </nav>
 
@@ -80,18 +82,20 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduce ? 0 : -8 }}
             transition={{ duration: reduce ? 0.15 : 0.35 }}
-            className="mt-4 rounded-3xl border border-[rgba(90,82,74,0.14)] bg-[rgba(255,252,248,0.94)] p-6 shadow-[0_24px_70px_rgba(42,38,34,0.1)] backdrop-blur-2xl lg:hidden"
+            className="mt-4 rounded-3xl border border-[rgba(90,82,74,0.14)] bg-[rgba(255,252,248,0.97)] p-6 shadow-[0_24px_70px_rgba(42,38,34,0.1)] lg:hidden"
           >
             <nav className="flex flex-col gap-4" aria-label="Mobile primary">
               {items.map((item) => (
-                <a
+                <motion.a
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="text-xs font-semibold uppercase tracking-[0.26em] text-[#3a3530]"
+                  whileTap={reduce ? undefined : { opacity: 0.88 }}
+                  transition={{ duration: 0.5 }}
+                  className="nav-editorial-link text-xs font-semibold uppercase tracking-[0.28em] text-[#3a3530]"
                 >
                   {item.label}
-                </a>
+                </motion.a>
               ))}
             </nav>
           </motion.div>

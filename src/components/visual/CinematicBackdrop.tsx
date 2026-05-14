@@ -13,18 +13,18 @@ export function CinematicBackdrop() {
         <>
           <motion.div
             className="absolute -right-16 top-1/4 h-[420px] w-[420px] rounded-full bg-[rgba(255,248,242,0.55)] blur-[70px]"
-            animate={{ x: [0, -12, 0], opacity: [0.55, 0.85, 0.55] }}
-            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ x: [0, -8, 0], opacity: [0.52, 0.78, 0.52] }}
+            transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
             className="absolute -left-10 bottom-0 h-72 w-72 rounded-full bg-[rgba(230,210,218,0.14)] blur-[56px]"
-            animate={{ y: [0, -14, 0], opacity: [0.4, 0.65, 0.4] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ y: [0, -10, 0], opacity: [0.38, 0.58, 0.38] }}
+            transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
             className="absolute left-1/3 top-0 h-48 w-[140%] -translate-x-1/2 rounded-[100%] bg-[rgba(255,252,248,0.35)] blur-[48px]"
-            animate={{ opacity: [0.5, 0.75, 0.5] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ opacity: [0.48, 0.68, 0.48] }}
+            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
           />
         </>
       )}

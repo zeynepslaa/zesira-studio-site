@@ -3,12 +3,14 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { StatusPill } from "@/components/cards/StatusPill";
 import type { AppPreview } from "@/content/types";
+import { useComingSoon } from "@/components/ui/ComingSoonProvider";
 
 export function AppsSection({ apps }: { apps: AppPreview[] }) {
   const reduce = useReducedMotion();
+  const { openComingSoon } = useComingSoon();
 
   return (
-    <section id="apps" className="paper-section-2 relative scroll-mt-28 border-t border-[rgba(90,82,74,0.08)] py-28 md:py-40">
+    <section id="apps" className="paper-section-2 editorial-section-floor relative scroll-mt-28 border-t border-[rgba(90,82,74,0.08)] py-16 md:py-24">
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <span
           className="hand-placed-nudge absolute right-[6%] top-[6rem] z-[1] font-[var(--font-caveat),cursive] text-[1.05rem] text-[#7a1528]/38 md:right-[10%] md:top-[5.5rem]"
@@ -66,11 +68,20 @@ export function AppsSection({ apps }: { apps: AppPreview[] }) {
             return (
               <motion.article
                 key={app.id}
-                className="grid grid-cols-1 gap-8 border-b border-[rgba(90,82,74,0.12)] py-14 md:grid-cols-12 md:gap-6 md:py-20"
+                role="button"
+                tabIndex={0}
+                className="grid cursor-pointer grid-cols-1 gap-8 border-b border-[rgba(90,82,74,0.12)] py-10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1528]/40 md:grid-cols-12 md:gap-6 md:py-14"
                 initial={reduce ? false : { opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-8% 0px" }}
                 transition={{ duration: reduce ? 0 : 0.75, delay: reduce ? 0 : i * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                onClick={() => openComingSoon(app.title)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openComingSoon(app.title);
+                  }
+                }}
               >
                 <div
                   className={`flex items-start md:col-span-2 ${flip ? "md:order-3 md:justify-end" : "md:order-1"}`}

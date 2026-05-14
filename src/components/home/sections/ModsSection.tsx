@@ -1,18 +1,18 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { EditorialStillLife } from "@/components/visual/EditorialStillLife";
 import type { ModHighlight } from "@/content/types";
+import { useComingSoon } from "@/components/ui/ComingSoonProvider";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
 
 export function ModsSection({ intro, items }: { intro: string; items: ModHighlight[] }) {
   const reduce = useReducedMotion();
+  const { openComingSoon } = useComingSoon();
 
   return (
-    <section
-      id="mods"
-      className="paper-section-3 relative scroll-mt-28 border-t border-[rgba(90,82,74,0.08)] py-28 md:py-40"
-    >
+    <section id="mods" className="paper-section-3 editorial-section-floor relative scroll-mt-28 border-t border-[rgba(90,82,74,0.08)] py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <div className="relative">
           <motion.p
@@ -33,42 +33,63 @@ export function ModsSection({ intro, items }: { intro: string; items: ModHighlig
           </motion.p>
         </div>
 
-        <div className="mt-16 md:mt-24">
+        <div className="mt-10 md:mt-14">
           {items.map((item, i) => {
             const r = ROMAN[i + 1] ?? String(i + 1);
             const stagger = i % 3;
             const offsetClass = stagger === 1 ? "md:ml-[8%]" : stagger === 2 ? "md:-ml-[4%] md:mr-[6%]" : "";
             return (
-              <motion.div
-                key={item.id}
-                className={`relative border-t border-[rgba(90,82,74,0.1)] py-14 md:grid md:grid-cols-12 md:gap-10 md:py-20 ${offsetClass}`}
-                initial={reduce ? false : { opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-8% 0px" }}
-                transition={{ duration: reduce ? 0 : 0.75, delay: reduce ? 0 : i * 0.04 }}
-              >
-                <div className="md:col-span-4 md:sticky md:top-28 md:self-start">
-                  <span
-                    className="font-display text-[clamp(3.5rem,14vw,9rem)] font-medium leading-none text-[#ded5cd] select-none"
-                    aria-hidden
-                  >
-                    {r}
-                  </span>
-                  {i === items.length - 1 ? (
-                    <p className="mt-6 hidden font-[var(--font-caveat),cursive] text-xl text-[#7a1528]/75 md:block">
-                      torn notes from playtests
+              <div key={item.id}>
+                <motion.div
+                  role="button"
+                  tabIndex={0}
+                  className={`relative cursor-pointer border-t border-[rgba(90,82,74,0.1)] py-9 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7a1528]/40 md:grid md:grid-cols-12 md:items-end md:gap-10 md:py-12 ${offsetClass}`}
+                  initial={reduce ? false : { opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-8% 0px" }}
+                  transition={{ duration: reduce ? 0 : 0.75, delay: reduce ? 0 : i * 0.04 }}
+                  onClick={() => openComingSoon(item.title)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      openComingSoon(item.title);
+                    }
+                  }}
+                >
+                  <div className="md:col-span-4 md:sticky md:top-28 md:self-start">
+                    <span
+                      className="font-display text-[clamp(3.5rem,14vw,9rem)] font-medium leading-none text-[#ded5cd] select-none"
+                      aria-hidden
+                    >
+                      {r}
+                    </span>
+                    {i === items.length - 1 ? (
+                      <p className="mt-6 hidden font-[var(--font-caveat),cursive] text-xl text-[#7a1528]/75 md:block">
+                        torn notes from playtests
+                      </p>
+                    ) : null}
+                  </div>
+                  <div className="md:col-span-8">
+                    <h3 className="font-display text-[clamp(1.75rem,4.2vw,3.4rem)] font-medium leading-[1.08] tracking-[-0.02em] text-[#1f1b18]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-6 max-w-prose border-l border-[rgba(122,21,40,0.2)] pl-6 text-[1rem] leading-[1.7] text-[#5c534c] md:text-[1.05rem]">
+                      {item.note}
                     </p>
-                  ) : null}
-                </div>
-                <div className="md:col-span-8">
-                  <h3 className="font-display text-[clamp(1.75rem,4.2vw,3.4rem)] font-medium leading-[1.08] tracking-[-0.02em] text-[#1f1b18]">
-                    {item.title}
-                  </h3>
-                  <p className="mt-6 max-w-prose border-l border-[rgba(122,21,40,0.2)] pl-6 text-[1rem] leading-[1.7] text-[#5c534c] md:text-[1.05rem]">
-                    {item.note}
-                  </p>
-                </div>
-              </motion.div>
+                  </div>
+                </motion.div>
+                {i === 1 ? (
+                  <div className="border-t border-[rgba(90,82,74,0.08)] py-8 md:py-11">
+                    <div className="mx-auto max-w-md md:ml-[min(12vw,6rem)] md:max-w-sm">
+                      <EditorialStillLife
+                        seed={11}
+                        variant="polaroid"
+                        caption="WIP render — kept as texture, not a feature grid"
+                      />
+                    </div>
+                  </div>
+                ) : null}
+              </div>
             );
           })}
         </div>

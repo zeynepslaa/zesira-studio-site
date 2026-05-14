@@ -30,6 +30,13 @@ npm run dev
 
 Visit `http://localhost:3000`.
 
+## Membership backend (new)
+
+- API endpoints: `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`
+- User records are stored locally in `/.data/users.json` (ignored by git)
+- Set `AUTH_SECRET` in `.env.local` for production-grade JWT signing
+- `/members` is now a protected members-only page (redirects guests to `/#membership`)
+
 ## Deploy to Vercel (auto-updates from GitHub)
 
 1. Push this repository to GitHub.

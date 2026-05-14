@@ -254,7 +254,45 @@ body {
   transform: translateX(38%) skewX(-8deg);
 }
 
+/* Polaroid / tear sheet — tactile white lip, no glass */
+.polaroid-frame {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.92) inset,
+    0 26px 55px rgba(42, 38, 34, 0.11),
+    0 0 0 1px rgba(90, 82, 74, 0.06);
+}
+
+@keyframes editorial-grain-drift {
+  0%,
+  100% {
+    opacity: 0.11;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.15;
+    transform: translate3d(-0.35%, 0.25%, 0);
+  }
+}
+
+.editorial-grain-drift {
+  animation: editorial-grain-drift 18s ease-in-out infinite;
+}
+
+.editorial-grain-drift-slow {
+  animation: editorial-grain-drift 26s ease-in-out infinite reverse;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .editorial-grain-drift {
+    animation: none;
+    opacity: 0.12;
+  }
+
+  .editorial-grain-drift-slow {
+    animation: none;
+    opacity: 0.06;
+  }
+
   html {
     scroll-behavior: auto;
   }
@@ -271,7 +309,118 @@ body {
 
   .archive-magazine-gloss,
   .archive-issue-ring,
-  .sparkle-twinkle {
+  .sparkle-twinkle,
+  .editorial-rain-sheen,
+  .editorial-silk-breathe {
     animation: none !important;
   }
+}
+
+/* —— Final cinematic layer: slow atmospheric drift —— */
+@keyframes editorial-silk-breathe {
+  0%,
+  100% {
+    transform: scale(1) translate3d(0, 0, 0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.015) translate3d(0.2%, -0.15%, 0);
+    opacity: 0.72;
+  }
+}
+
+.editorial-silk-breathe {
+  animation: editorial-silk-breathe 26s ease-in-out infinite;
+}
+
+@keyframes editorial-rain-sheen {
+  0% {
+    background-position: 0% 40%;
+  }
+  100% {
+    background-position: 100% 60%;
+  }
+}
+
+.editorial-rain-sheen {
+  animation: editorial-rain-sheen 32s linear infinite;
+}
+
+/* Oversized watermark type — magazine spine energy */
+.editorial-watermark-xl {
+  font-family: var(--font-playfair), ui-serif, Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 0.85;
+  color: rgba(31, 27, 24, 0.055);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Faint vertical rules — archive binding */
+.editorial-rule-fade {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(122, 21, 40, 0.12) 22%,
+    rgba(90, 82, 74, 0.08) 50%,
+    rgba(122, 21, 40, 0.1) 78%,
+    transparent 100%
+  );
+}
+
+/* Luxury nav underline — slow reveal */
+.nav-editorial-link {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.2rem;
+  transition:
+    color 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-editorial-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(122, 21, 40, 0.15), rgba(122, 21, 40, 0.45));
+  transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-editorial-link:hover::after,
+.nav-editorial-link:focus-visible::after {
+  width: 100%;
+}
+
+.nav-editorial-link:hover {
+  color: rgb(122, 21, 40);
+}
+
+/* Section floor — barely perceptible vertical rhythm */
+.editorial-section-floor {
+  position: relative;
+}
+
+.editorial-section-floor::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 11rem,
+    rgba(90, 82, 74, 0.03) 11rem,
+    rgba(90, 82, 74, 0.03) 11.04rem
+  );
+  mask-image: linear-gradient(90deg, transparent, black 18%, black 82%, transparent);
+}
+
+/* Torn archive trace cards — living desktop layer */
+.archive-trace-paper {
+  clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 2.5% 100%, 0 97%);
 }

@@ -7,6 +7,8 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 import { LuxuryNav } from "@/components/LuxuryNav";
 import { AmbientAudio } from "@/components/AmbientAudio";
 import { GrainOverlay } from "@/components/visual/GrainOverlay";
+import { LightLeakVeil } from "@/components/visual/LightLeakVeil";
+import { FilmEdgeBurn } from "@/components/visual/FilmEdgeBurn";
 import { FloatingStars } from "@/components/visual/FloatingStars";
 import { ArchiveAtmosphere } from "@/components/visual/ArchiveAtmosphere";
 import { EditorialInterlude } from "@/components/visual/EditorialInterlude";
@@ -17,14 +19,21 @@ import { AppsSection } from "@/components/home/sections/AppsSection";
 import { ModsSection } from "@/components/home/sections/ModsSection";
 import { CcSection } from "@/components/home/sections/CcSection";
 import { JournalSection } from "@/components/home/sections/JournalSection";
+import { VaultSection } from "@/components/home/sections/VaultSection";
 import { MembershipSection } from "@/components/home/sections/MembershipSection";
 import { ContactSection } from "@/components/home/sections/ContactSection";
+import { CurrentHouseholdSection } from "@/components/home/sections/CurrentHouseholdSection";
+import { AmbientInternetStickers } from "@/components/universe/AmbientInternetStickers";
+import { FloatingArchiveSystems } from "@/components/universe/FloatingArchiveSystems";
+import { LivingArchiveSurface } from "@/components/universe/LivingArchiveSurface";
+import { ComingSoonProvider } from "@/components/ui/ComingSoonProvider";
 
 export function HomeExperience({ content }: { content: SiteContent }) {
   const [introDone, setIntroDone] = useState(false);
   const w = content.whispers;
 
   return (
+    <ComingSoonProvider>
     <div className="group/editorial relative min-h-svh text-[#2a2622]">
       <div
         aria-hidden
@@ -40,8 +49,14 @@ export function HomeExperience({ content }: { content: SiteContent }) {
       ) : null}
 
       <GrainOverlay />
+      <LightLeakVeil />
+      <FilmEdgeBurn />
       <FloatingStars count={96} />
       {introDone ? <ArchiveAtmosphere archiveMicroNotes={w.archiveMicroNotes} /> : null}
+
+      {introDone ? <AmbientInternetStickers stickers={content.ambientStickers} /> : null}
+      {introDone ? <LivingArchiveSurface data={content.livingArchive} /> : null}
+      {introDone ? <FloatingArchiveSystems data={content.floatingSystems} /> : null}
 
       <LuxuryNav items={content.nav} brand={content.brand.name} />
 
@@ -54,18 +69,20 @@ export function HomeExperience({ content }: { content: SiteContent }) {
       >
         <main id="main">
           <HeroSection brand={content.brand.name} subtitle={content.hero.subtitle} heroAside={w.heroAside} />
+          <CurrentHouseholdSection data={content.household} />
           <FeaturedProjectsSection projects={content.featuredProjects} />
-          <EditorialInterlude text={w.betweenProjectsAndAbout} />
+          <EditorialInterlude text={w.betweenProjectsAndAbout} rhythm={0} />
           <AboutSection eyebrow={content.about.eyebrow} paragraphs={content.about.paragraphs} />
-          <EditorialInterlude text={w.betweenAboutAndApps} />
+          <EditorialInterlude text={w.betweenAboutAndApps} rhythm={1} />
           <AppsSection apps={content.apps} />
-          <EditorialInterlude text={w.betweenAppsAndMods} />
+          <EditorialInterlude text={w.betweenAppsAndMods} rhythm={2} />
           <ModsSection intro={content.mods.intro} items={content.mods.items} />
-          <EditorialInterlude text={w.betweenModsAndCc} />
+          <EditorialInterlude text={w.betweenModsAndCc} rhythm={0} />
           <CcSection intro={content.cc.intro} collections={content.cc.collections} />
-          <EditorialInterlude text={w.betweenCcAndJournal} />
+          <EditorialInterlude text={w.betweenCcAndJournal} rhythm={1} />
           <JournalSection intro={content.journal.intro} posts={content.journal.posts} />
-          <EditorialInterlude text={w.betweenJournalAndMembership} />
+          <EditorialInterlude text={w.betweenJournalAndMembership} rhythm={2} />
+          <VaultSection intro={content.vault.intro} items={content.vault.items} />
           <MembershipSection intro={content.membership.intro} tiers={content.membership.tiers} />
           <ContactSection
             line={content.contact.line}
@@ -80,5 +97,6 @@ export function HomeExperience({ content }: { content: SiteContent }) {
         <AmbientAudio src={content.audio.src} volume={content.audio.volume} label={content.audio.label} />
       ) : null}
     </div>
+    </ComingSoonProvider>
   );
 }
