@@ -36,7 +36,7 @@ export function HeroSection({
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 md:px-10">
-        <div className="grid items-end gap-10 md:grid-cols-12 md:gap-8 md:pb-6">
+        <div className="relative grid items-end gap-10 md:grid-cols-12 md:gap-8 md:pb-6">
           {/* Cover type — left rail */}
           <div className="relative md:col-span-7">
             <div
@@ -102,6 +102,18 @@ export function HeroSection({
             </div>
 
             <motion.p
+              className="pointer-events-none absolute left-full top-[42%] z-40 ml-[-2.25rem] hidden max-w-[11rem] rotate-[-5deg] md:block"
+              initial={reduce ? false : { opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: reduce ? 0 : 0.7, duration: 0.65 }}
+              aria-hidden
+            >
+              <span className="block rounded-sm border border-[rgba(122,21,40,0.22)] bg-[rgba(255,252,248,0.88)] px-2.5 py-2 font-[var(--font-caveat),cursive] text-[1.05rem] leading-snug text-[#7a1528]/88 shadow-[0_14px_36px_rgba(42,38,34,0.1)]">
+                girlhood archive — open in another tab
+              </span>
+            </motion.p>
+
+            <motion.p
               className="mt-8 max-w-xl text-base font-light leading-relaxed text-[#5c534c] md:mt-10 md:max-w-lg md:text-lg"
               initial={reduce ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
@@ -156,7 +168,13 @@ export function HeroSection({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: reduce ? 0 : 1.25, delay: reduce ? 0 : 0.18, ease: CINEMATIC_EASE }}
           >
-            <div className="absolute -left-4 top-10 z-0 hidden w-[72%] md:block" aria-hidden>
+            <p
+              className="pointer-events-none absolute -left-[min(38%,10rem)] top-[12%] z-30 hidden max-w-[9.5rem] rotate-[7deg] font-display text-[7px] font-semibold uppercase leading-relaxed tracking-[0.36em] text-[#8a8076]/80 md:block"
+              aria-hidden
+            >
+              obsessive file names count as poetry
+            </p>
+            <div className="absolute -left-8 top-8 z-0 hidden w-[78%] md:block" aria-hidden>
               <EditorialStillLife
                 seed={2}
                 variant="polaroid"
@@ -165,7 +183,7 @@ export function HeroSection({
               />
             </div>
             <motion.div
-              className="paper-edge relative z-10 min-h-[280px] rounded-[1.25rem] border border-[rgba(90,82,74,0.12)] bg-[linear-gradient(145deg,rgba(255,252,248,0.95)_0%,rgba(240,228,232,0.35)_42%,rgba(235,226,214,0.9)_100%)] shadow-[0_32px_80px_rgba(42,38,34,0.12),0_2px_0_rgba(255,255,255,0.8)_inset] md:-translate-x-4 md:min-h-[min(52vh,500px)] md:translate-y-6"
+              className="paper-edge relative z-10 min-h-[280px] rounded-[1.25rem] border border-[rgba(90,82,74,0.12)] bg-[linear-gradient(145deg,rgba(255,252,248,0.95)_0%,rgba(240,228,232,0.35)_42%,rgba(235,226,214,0.9)_100%)] shadow-[0_32px_80px_rgba(42,38,34,0.12),0_2px_0_rgba(255,255,255,0.8)_inset] md:-translate-x-6 md:min-h-[min(52vh,500px)] md:translate-y-8 md:rotate-[0.35deg]"
               whileHover={reduce ? undefined : { y: -5, rotate: -0.55 }}
               transition={{ duration: 0.42, ease: CINEMATIC_EASE }}
               aria-hidden

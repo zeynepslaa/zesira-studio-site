@@ -63,11 +63,22 @@ export function CcSection({ intro, collections }: { intro: string; collections: 
           viewport={{ once: true, margin: "-12% 0px" }}
           transition={{ duration: reduce ? 0 : 1.05, ease: CINEMATIC_EASE }}
         >
-          <div className="md:col-span-8">
+          <div className="relative md:col-span-8 md:-rotate-[0.35deg]">
             <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#7a6f66]">CC collections</p>
             <h2 className="mt-5 font-display text-[clamp(2.75rem,10vw,6.5rem)] font-medium leading-[0.88] tracking-[-0.03em] text-[#1f1b18]">
               Fashion
-              <span className="mt-1 block pl-[min(10vw,6rem)] text-[#7a1528]/88">archive</span>
+              <span className="relative mt-1 block pl-[min(10vw,6rem)] text-[#7a1528]/88">
+                archive
+                <span
+                  aria-hidden
+                  className="hand-placed-nudge pointer-events-none absolute -right-2 top-1/2 z-10 hidden max-w-[9rem] translate-y-[-40%] md:block"
+                  style={{ ["--hand-rotate" as string]: "8deg" }}
+                >
+                  <span className="block rounded-sm border border-[rgba(122,21,40,0.2)] bg-[rgba(255,252,248,0.9)] px-2 py-1.5 font-display text-[6px] font-semibold uppercase leading-relaxed tracking-[0.34em] text-[#7a1528]/75 shadow-md">
+                    too many swatches — keep all
+                  </span>
+                </span>
+              </span>
             </h2>
             <p className="mt-8 max-w-2xl font-serif text-[1.05rem] font-light leading-[1.65] text-[#5c534c] md:text-[1.1rem]">{intro}</p>
           </div>

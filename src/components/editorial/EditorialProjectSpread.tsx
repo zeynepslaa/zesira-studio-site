@@ -12,11 +12,13 @@ function CampaignField({
   caption,
   issueMark,
   storyCaption,
+  overlapLine,
 }: {
   seed: number;
   caption?: string;
   issueMark?: string;
   storyCaption?: string;
+  overlapLine?: string;
 }) {
   const reduce = useReducedMotion();
   const hues = [
@@ -62,6 +64,14 @@ function CampaignField({
         {storyCaption ? (
           <p className="pointer-events-none absolute bottom-6 right-6 z-[3] hidden max-w-[12rem] font-serif text-[0.72rem] font-light italic leading-snug text-[#5c534c]/45 md:block">
             {storyCaption}
+          </p>
+        ) : null}
+        {overlapLine ? (
+          <p
+            className="pointer-events-none absolute bottom-16 left-2 z-[4] max-w-[11rem] rotate-[-2deg] rounded-sm border border-[rgba(255,252,248,0.55)] bg-[rgba(255,252,248,0.82)] px-2 py-1.5 font-[var(--font-caveat),cursive] text-[0.98rem] leading-tight text-[#7a1528]/92 shadow-[0_10px_26px_rgba(42,38,34,0.1)] md:bottom-auto md:left-5 md:top-1/2 md:max-w-[15rem] md:-translate-y-1/2 md:rotate-[-3deg] md:px-2.5 md:py-2 md:text-[clamp(1rem,2.4vw,1.35rem)]"
+            style={{ clipPath: "polygon(0 8%, 6% 0%, 94% 2%, 100% 12%, 100% 88%, 94% 100%, 5% 98%, 0 90%)" }}
+          >
+            {overlapLine}
           </p>
         ) : null}
       </motion.div>
@@ -136,6 +146,22 @@ const STILL_CAPTIONS = [
   "Save thumbnail — cropped like a tear sheet",
 ];
 
+/** Handwritten scraps — deliberately “too much” on the image plane */
+const SCRAP_OVERLAYS = [
+  "too pretty to delete",
+  "wrong folder, right feeling",
+  "pinned in my head first",
+  "saved from a dream",
+  "not for the timeline",
+  "still buffering emotionally",
+  "one more CAS pass",
+  "Tartosa in the tab bar",
+  "Willow Creek at 2AM",
+  "girlhood as a file format",
+  "obsessively curated",
+  "unnecessary but beautiful",
+];
+
 /**
  * Fashion-campaign spread — not a SaaS card. Layout rotates for editorial rhythm.
  */
@@ -199,19 +225,20 @@ export function EditorialProjectSpread({ project, index }: Props) {
         >
           {n}
         </span>
-        <div className="relative z-10 grid items-end gap-10 md:grid-cols-12 md:gap-6">
-          <div className="md:col-span-6 md:col-start-1 md:pt-6">
+        <div className="relative z-10 grid items-end gap-8 md:grid-cols-12 md:gap-0">
+          <div className="relative z-30 md:col-span-6 md:col-start-1 md:-mr-2 md:pb-10 md:pr-4">
             {kicker}
             <div className="mt-5">{titleBlock}</div>
             {tapeRow}
             {body}
           </div>
-          <div className="md:col-span-6 md:-mt-6 md:pb-4">
+          <div className="relative z-10 md:col-span-6 md:-ml-10 md:translate-y-4 md:pl-2">
             <CampaignField
               seed={index}
               caption={stillCaption}
               issueMark={n}
               storyCaption={STILL_CAPTIONS[(index + 2) % STILL_CAPTIONS.length]}
+              overlapLine={SCRAP_OVERLAYS[index % SCRAP_OVERLAYS.length]}
             />
           </div>
         </div>
@@ -231,18 +258,25 @@ export function EditorialProjectSpread({ project, index }: Props) {
         >
           {n}
         </span>
-        <div className="relative z-10 grid items-end gap-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-5 md:order-1 md:row-span-1">
-            <div className="md:-rotate-[0.25deg]">
+        <div className="relative z-10 grid items-end gap-8 md:grid-cols-12 md:gap-2">
+          <div className="relative z-20 md:col-span-5 md:order-1 md:row-span-1 md:translate-x-2">
+            <div className="md:-rotate-[0.55deg] md:translate-y-3">
               <CampaignField
                 seed={index + 1}
                 caption={stillCaption}
                 issueMark={n}
                 storyCaption={STILL_CAPTIONS[(index + 1) % STILL_CAPTIONS.length]}
+                overlapLine={SCRAP_OVERLAYS[(index + 3) % SCRAP_OVERLAYS.length]}
               />
             </div>
           </div>
-          <div className="md:col-span-7 md:order-2 md:text-right">
+          <div className="relative z-30 md:col-span-7 md:order-2 md:-ml-6 md:text-right">
+            <span
+              className="hand-placed-nudge mb-3 hidden font-[var(--font-caveat),cursive] text-[1.05rem] text-[#7a1528]/75 md:inline-block"
+              style={{ ["--hand-rotate" as string]: "5deg" }}
+            >
+              currently obsessing over —
+            </span>
             {kicker}
             <div className="mt-5 md:ml-auto md:max-w-2xl">{titleBlock}</div>
             <div className="mt-5 flex justify-end">{tapeRow}</div>
@@ -258,27 +292,43 @@ export function EditorialProjectSpread({ project, index }: Props) {
 
   const innerC = (
     <>
-      <div className="relative z-10 md:ml-[4%] md:max-w-[88%]">
+      <div className="relative z-10 md:ml-[2%] md:max-w-[92%]">
         <p className="font-display text-[clamp(3.5rem,11vw,7.5rem)] font-medium leading-[0.88] tracking-[-0.03em] text-[#1f1b18]">
           {project.title}
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-5">{tapeRow}</div>
       </div>
-      <p className="relative z-10 mt-10 max-w-xl font-serif text-[1.1rem] font-light italic leading-relaxed text-[#5c534c] md:ml-[18%] md:text-[1.2rem]">
+      <p className="relative z-20 -mt-2 max-w-xl font-serif text-[1.1rem] font-light italic leading-relaxed text-[#5c534c] md:ml-[12%] md:max-w-2xl md:text-[1.2rem]">
         {project.tagline}
       </p>
       {project.editorialNote?.trim() ? (
-        <p className="relative z-10 mt-6 max-w-md font-[var(--font-caveat),cursive] text-[1.35rem] text-[#7a1528]/88 md:ml-[10%]">
+        <p className="relative z-20 mt-4 max-w-md font-[var(--font-caveat),cursive] text-[1.35rem] text-[#7a1528]/88 md:ml-[6%] md:-rotate-[0.35deg]">
           {project.editorialNote}
         </p>
       ) : null}
-      <div className="relative z-10 mt-14 h-[min(28vw,200px)] w-full overflow-hidden md:mt-16 md:h-[min(22vw,240px)]">
+      <div className="relative z-10 -mx-3 mt-10 min-h-[min(52vw,320px)] md:mx-[-5%] md:mt-6 md:min-h-[min(40vw,380px)]">
+        <div className="absolute -left-2 -top-6 z-20 hidden max-w-[11rem] rotate-[-5deg] md:block">
+          <p className="rounded-sm border border-[rgba(122,21,40,0.2)] bg-[rgba(255,252,248,0.9)] px-2.5 py-2 font-display text-[7px] font-semibold uppercase leading-relaxed tracking-[0.32em] text-[#7a1528]/80 shadow-[0_10px_28px_rgba(42,38,34,0.08)]">
+            full bleed — ignore the margin police
+          </p>
+        </div>
         <CampaignField
           seed={index + 2}
           caption={stillCaption}
           issueMark={n}
           storyCaption={STILL_CAPTIONS[index % STILL_CAPTIONS.length]}
+          overlapLine={SCRAP_OVERLAYS[(index + 6) % SCRAP_OVERLAYS.length]}
         />
+        <div className="pointer-events-none absolute bottom-4 left-4 right-4 z-[5] md:bottom-8 md:left-10 md:right-12">
+          <div className="bg-gradient-to-t from-[rgba(255,252,248,0.94)] via-[rgba(255,252,248,0.5)] to-transparent px-3 pb-4 pt-14 md:px-6 md:pb-6 md:pt-24">
+            <p className="max-w-2xl font-[var(--font-caveat),cursive] text-[clamp(1.25rem,3.5vw,1.85rem)] leading-snug text-[#7a1528]/90 md:max-w-3xl">
+              {project.tagline}
+            </p>
+            <p className="mt-2 max-w-lg font-display text-[8px] font-semibold uppercase tracking-[0.38em] text-[#5c534c]/75">
+              type floating over the still — on purpose, not a mistake
+            </p>
+          </div>
+        </div>
       </div>
       <span
         className="pointer-events-none absolute bottom-6 right-4 font-display text-[clamp(3rem,14vw,6rem)] font-medium text-[#ded5cd]/90 select-none md:bottom-10 md:right-10"
@@ -294,7 +344,6 @@ export function EditorialProjectSpread({ project, index }: Props) {
       href={project.href}
       title={project.title}
       blockPad={blockPad}
-      overflowHidden
       inner={innerC}
       motionProps={motionProps}
     />

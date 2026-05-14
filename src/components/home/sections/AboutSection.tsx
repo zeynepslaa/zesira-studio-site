@@ -27,9 +27,9 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
         </span>
       </div>
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">
-        <div className="grid gap-10 md:grid-cols-12 md:items-start md:gap-8 lg:gap-10">
+        <div className="grid gap-10 md:grid-cols-12 md:items-start md:gap-4 lg:gap-6">
           <motion.div
-            className="md:col-span-5"
+            className="relative z-20 md:col-span-5 md:translate-y-3"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px" }}
@@ -51,7 +51,7 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
           </motion.div>
 
           <motion.div
-            className="space-y-6 border-l border-[rgba(122,21,40,0.12)] pl-6 text-base leading-relaxed text-[#5c534c] md:col-span-4 md:pl-10 md:text-lg"
+            className="relative z-10 space-y-6 border-l border-[rgba(122,21,40,0.12)] pl-6 text-base leading-relaxed text-[#5c534c] md:col-span-4 md:-ml-8 md:border-l md:pl-12 md:text-lg"
             initial={reduce ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10% 0px" }}
@@ -70,12 +70,12 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
             ))}
           </motion.div>
 
-          <div className="md:col-span-3 md:pt-4">
+          <div className="relative z-[5] md:col-span-3 md:-ml-4 md:-translate-y-10 md:pt-0">
             <EditorialStillLife
               seed={4}
               variant="collage"
               caption="tear sheet — scanned edges kept"
-              className="md:-translate-y-2"
+              className="md:rotate-[0.6deg] md:shadow-[0_28px_60px_rgba(42,38,34,0.14)]"
             />
           </div>
         </div>
