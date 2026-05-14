@@ -35,7 +35,10 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
             viewport={{ once: true, margin: "-10% 0px" }}
             transition={{ duration: reduce ? 0 : 1.05, ease: CINEMATIC_EASE }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-[0.34em] text-[#7a6f66]">{eyebrow}</p>
+            <p className="font-zesira-alt text-[clamp(1rem,2.2vw,1.35rem)] font-normal tracking-[0.07em] text-[#7a1528]/68">
+              Digital femininity
+            </p>
+            <p className="mt-2 text-[10px] font-semibold uppercase tracking-[0.34em] text-[#7a6f66]">{eyebrow}</p>
             <h2 className="mt-5 font-display text-[clamp(2.35rem,6.5vw,4.35rem)] font-medium leading-[1.02] tracking-[-0.025em] text-[#1f1b18]">
               <span className="block">A studio tuned</span>
               <span className="mt-1 block pl-[min(12vw,6rem)] font-normal text-[#7a1528]/88 md:pl-[min(16vw,9rem)]">

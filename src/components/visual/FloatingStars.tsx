@@ -63,7 +63,7 @@ export function FloatingStars({ count = 72 }: { count?: number }) {
         s.kind === "spark" ? (
           <motion.span
             key={s.id}
-            className="editorial-star-chip absolute opacity-[0.62] transition duration-700 group-hover/editorial:scale-[1.16] group-hover/editorial:opacity-90"
+            className="editorial-star-chip absolute opacity-[0.62] transition duration-300 group-hover/editorial:scale-[1.16] group-hover/editorial:opacity-90"
             style={{ top: s.top, left: s.left, ...cssVars(s) }}
             animate={{ y: [0, -9, 0], rotate: [0, 5, 0] }}
             transition={{
@@ -78,7 +78,7 @@ export function FloatingStars({ count = 72 }: { count?: number }) {
         ) : (
           <motion.span
             key={s.id}
-            className="editorial-star-chip absolute rounded-full bg-[rgba(200,195,188,0.5)] transition duration-700 group-hover/editorial:scale-125 group-hover/editorial:opacity-95"
+            className="editorial-star-chip absolute rounded-full bg-[rgba(200,195,188,0.5)] transition duration-300 group-hover/editorial:scale-125 group-hover/editorial:opacity-95"
             style={{
               top: s.top,
               left: s.left,

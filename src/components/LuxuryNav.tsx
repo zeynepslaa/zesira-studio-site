@@ -27,7 +27,7 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
   return (
     <header className="fixed inset-x-0 top-0 z-40 px-4 pt-5 md:px-8">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border px-5 py-3 transition-[background,border-color,box-shadow] duration-500 md:px-8 ${
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border px-5 py-3 transition-[background,border-color,box-shadow] duration-300 ease-out md:px-8 ${
           scrolled
             ? "border-[rgba(90,82,74,0.22)] bg-[rgba(255,252,248,0.94)] shadow-[0_12px_40px_rgba(42,38,34,0.08)]"
             : "border-[rgba(90,82,74,0.14)] bg-[rgba(255,252,248,0.88)] shadow-[0_8px_28px_rgba(42,38,34,0.04)]"
@@ -40,7 +40,7 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
           {brand.replace(" ", "")}
           <ChromeSpark
             size={10}
-            className="-mt-0.5 opacity-35 transition duration-500 group-hover:translate-x-0.5 group-hover:opacity-90 group-hover:drop-shadow-[0_0_8px_rgba(122,21,40,0.15)]"
+            className="-mt-0.5 opacity-35 transition duration-200 group-hover:translate-x-0.5 group-hover:opacity-90 group-hover:drop-shadow-[0_0_8px_rgba(122,21,40,0.15)]"
           />
         </a>
 
@@ -49,8 +49,8 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
             <motion.a
               key={item.href}
               href={item.href}
-              whileHover={reduce ? undefined : { y: -0.5, opacity: 0.92 }}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={reduce ? undefined : { y: -1, opacity: 0.94 }}
+              transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
               className="nav-editorial-link text-[10px] font-semibold uppercase tracking-[0.28em] text-[#5c534c]"
             >
               {item.label}
@@ -91,7 +91,7 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
                   href={item.href}
                   onClick={() => setOpen(false)}
                   whileTap={reduce ? undefined : { opacity: 0.88 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.2 }}
                   className="nav-editorial-link text-xs font-semibold uppercase tracking-[0.28em] text-[#3a3530]"
                 >
                   {item.label}

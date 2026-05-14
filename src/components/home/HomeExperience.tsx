@@ -26,6 +26,8 @@ import { CurrentHouseholdSection } from "@/components/home/sections/CurrentHouse
 import { AmbientInternetStickers } from "@/components/universe/AmbientInternetStickers";
 import { FloatingArchiveSystems } from "@/components/universe/FloatingArchiveSystems";
 import { LivingArchiveSurface } from "@/components/universe/LivingArchiveSurface";
+import { UniverseBloomVeil } from "@/components/universe/UniverseBloomVeil";
+import { UniverseRibbonLayer } from "@/components/universe/UniverseRibbonLayer";
 import { ComingSoonProvider } from "@/components/ui/ComingSoonProvider";
 
 export function HomeExperience({ content }: { content: SiteContent }) {
@@ -39,6 +41,7 @@ export function HomeExperience({ content }: { content: SiteContent }) {
         aria-hidden
         className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-25%,rgba(255,252,248,0.98),transparent_55%),radial-gradient(ellipse_55%_40%_at_100%_40%,rgba(245,228,232,0.16),transparent_50%)]"
       />
+      <UniverseBloomVeil />
       {!introDone ? (
         <LoadingScreen
           wordmark={content.brand.nameLoading}
@@ -51,10 +54,11 @@ export function HomeExperience({ content }: { content: SiteContent }) {
       <GrainOverlay />
       <LightLeakVeil />
       <FilmEdgeBurn />
-      <FloatingStars count={96} />
+      <FloatingStars count={118} />
       {introDone ? <ArchiveAtmosphere archiveMicroNotes={w.archiveMicroNotes} /> : null}
 
       {introDone ? <AmbientInternetStickers stickers={content.ambientStickers} /> : null}
+      {introDone ? <UniverseRibbonLayer ribbons={content.universeRibbons} /> : null}
       {introDone ? <LivingArchiveSurface data={content.livingArchive} /> : null}
       {introDone ? <FloatingArchiveSystems data={content.floatingSystems} /> : null}
 

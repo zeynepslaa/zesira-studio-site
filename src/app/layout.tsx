@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, Cormorant_Garamond, DM_Sans, Playfair_Display } from "next/font/google";
+import { Caveat, Cormorant_Garamond, DM_Sans, Italiana, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { siteContent } from "@/content/site";
 
@@ -30,6 +30,13 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const italiana = Italiana({
+  variable: "--font-italiana",
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: siteContent.brand.seoTitle,
   description: siteContent.brand.seoDescription,
@@ -43,7 +50,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${dmSans.variable} ${caveat.variable} ${playfair.variable} h-full scroll-pt-28`}
+      className={`${cormorant.variable} ${dmSans.variable} ${caveat.variable} ${playfair.variable} ${italiana.variable} h-full scroll-pt-28`}
     >
       <body className="min-h-svh font-sans antialiased">{children}</body>
     </html>

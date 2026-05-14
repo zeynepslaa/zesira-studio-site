@@ -15,8 +15,8 @@ export function MagneticHover({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 20, mass: 0.12 });
-  const sy = useSpring(y, { stiffness: 220, damping: 20, mass: 0.12 });
+  const sx = useSpring(x, { stiffness: 420, damping: 28, mass: 0.08 });
+  const sy = useSpring(y, { stiffness: 420, damping: 28, mass: 0.08 });
 
   function onMove(e: React.MouseEvent) {
     const el = ref.current;

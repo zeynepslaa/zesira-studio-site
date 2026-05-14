@@ -145,6 +145,14 @@ export type HouseholdUniverse = {
   characters: HouseholdSpread[];
 };
 
+/** Fixed-position editorial ribbons — scrapbook captions, Tumblr-era whispers */
+export type UniverseRibbon = {
+  id: string;
+  text: string;
+  className: string;
+  rotate?: number;
+};
+
 /** Sparse micro-copy placed between sections & moments — edit in `site.ts` */
 export type EditorialWhispers = {
   loaderLine: string;
@@ -210,6 +218,8 @@ export type SiteContent = {
   floatingSystems: FloatingSystems;
   /** Human traces, studio logs, margin fragments — living archive layer */
   livingArchive: LivingArchive;
+  /** Extra floating captions — feminine universe layer (wide screens) */
+  universeRibbons: UniverseRibbon[];
   contact: {
     line: string;
     email: string;

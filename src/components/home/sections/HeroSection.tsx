@@ -39,6 +39,10 @@ export function HeroSection({
         <div className="grid items-end gap-10 md:grid-cols-12 md:gap-8 md:pb-6">
           {/* Cover type — left rail */}
           <div className="relative md:col-span-7">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -left-3 top-[12%] hidden h-[min(52%,22rem)] w-px bg-gradient-to-b from-transparent via-[rgba(216,221,232,0.95)] to-transparent opacity-80 md:block"
+            />
             {!reduce ? (
               <div className="pointer-events-none absolute -left-1 top-2 flex gap-2 opacity-60 md:-left-2">
                 <ChromeSpark size={10} className="text-[#b8b0a8]" />
@@ -46,6 +50,14 @@ export function HeroSection({
               </div>
             ) : null}
 
+            <motion.p
+              className="mb-2 font-zesira-alt text-[clamp(1.15rem,2.8vw,1.65rem)] font-normal leading-none tracking-[0.06em] text-[#7a1528]/75"
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: reduce ? 0 : 0.95, delay: reduce ? 0 : 0.02, ease: CINEMATIC_EASE }}
+            >
+              Editor&apos;s notes —
+            </motion.p>
             <motion.p
               className="mb-5 text-[10px] font-semibold uppercase tracking-[0.4em] text-[#7a6f66]"
               initial={reduce ? false : { opacity: 0, y: 10 }}
@@ -107,7 +119,7 @@ export function HeroSection({
               <MagneticHover>
                 <a
                   href="#projects"
-                  className="group/c inline-block rounded-full border border-[#7a1528]/35 bg-[#fffcf7]/95 px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#2a2622] shadow-[0_14px_40px_rgba(42,38,34,0.08)] transition duration-500 hover:border-[#7a1528]/55 hover:bg-white hover:text-[#5c0f1f] hover:shadow-[0_20px_50px_rgba(122,21,40,0.12)]"
+                  className="group/c inline-block rounded-full border border-[#7a1528]/35 bg-[#fffcf7]/95 px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#2a2622] shadow-[0_14px_40px_rgba(42,38,34,0.08)] transition-[border-color,background-color,color,box-shadow,transform] duration-200 ease-out hover:border-[#7a1528]/55 hover:bg-white hover:text-[#5c0f1f] hover:shadow-[0_20px_50px_rgba(122,21,40,0.12)] active:scale-[0.99]"
                 >
                   Enter the spread
                 </a>
@@ -115,8 +127,8 @@ export function HeroSection({
               <motion.a
                 href="#membership"
                 whileHover={reduce ? undefined : { y: -1 }}
-                transition={{ duration: 0.35 }}
-                className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#7a6f66] underline decoration-[#d9d0c4] underline-offset-[10px] transition duration-500 hover:text-[#7a1528] hover:decoration-[#7a1528]/35"
+                transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+                className="text-[10px] font-semibold uppercase tracking-[0.32em] text-[#7a6f66] underline decoration-[#d9d0c4] underline-offset-[10px] transition-colors duration-200 hover:text-[#7a1528] hover:decoration-[#7a1528]/35"
               >
                 Patron desk
               </motion.a>
@@ -154,8 +166,8 @@ export function HeroSection({
             </div>
             <motion.div
               className="paper-edge relative z-10 min-h-[280px] rounded-[1.25rem] border border-[rgba(90,82,74,0.12)] bg-[linear-gradient(145deg,rgba(255,252,248,0.95)_0%,rgba(240,228,232,0.35)_42%,rgba(235,226,214,0.9)_100%)] shadow-[0_32px_80px_rgba(42,38,34,0.12),0_2px_0_rgba(255,255,255,0.8)_inset] md:-translate-x-4 md:min-h-[min(52vh,500px)] md:translate-y-6"
-              whileHover={reduce ? undefined : { y: -4, rotate: -0.4 }}
-              transition={{ duration: 0.9, ease: CINEMATIC_EASE }}
+              whileHover={reduce ? undefined : { y: -5, rotate: -0.55 }}
+              transition={{ duration: 0.42, ease: CINEMATIC_EASE }}
               aria-hidden
             >
               <div className="absolute inset-0 rounded-[1.25rem] bg-[radial-gradient(ellipse_80%_55%_at_30%_25%,rgba(255,252,248,0.95),transparent_62%),radial-gradient(ellipse_50%_40%_at_90%_80%,rgba(122,21,40,0.06),transparent_58%)]" />

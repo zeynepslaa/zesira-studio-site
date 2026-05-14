@@ -52,6 +52,11 @@ body {
   font-family: var(--font-playfair), ui-serif, Georgia, serif;
 }
 
+/* Ultra-thin editorial display — campaign kicker lines */
+.font-zesira-alt {
+  font-family: var(--font-italiana), ui-serif, Georgia, serif;
+}
+
 ::selection {
   background: rgba(122, 21, 40, 0.12);
   color: #1a1512;
@@ -245,8 +250,8 @@ body {
   opacity: 0;
   transform: translateX(-38%) skewX(-8deg);
   transition:
-    opacity 0.75s ease,
-    transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.32s ease,
+    transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .group:hover.editorial-card-sheen::after {
@@ -423,4 +428,54 @@ body {
 /* Torn archive trace cards — living desktop layer */
 .archive-trace-paper {
   clip-path: polygon(0 0, 100% 1.5%, 100% 100%, 2.5% 100%, 0 97%);
+}
+
+/* Scrapbook ribbons — floating universe captions */
+.universe-ribbon {
+  position: absolute;
+  filter: drop-shadow(0 12px 26px rgba(42, 38, 34, 0.07));
+}
+
+.universe-ribbon__tape {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: -7px;
+  height: 11px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 252, 248, 0.15) 0%,
+    rgba(216, 221, 232, 0.75) 28%,
+    rgba(243, 217, 228, 0.55) 50%,
+    rgba(216, 221, 232, 0.7) 72%,
+    rgba(255, 252, 248, 0.12) 100%
+  );
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.65) inset;
+  opacity: 0.92;
+}
+
+.universe-ribbon__body {
+  display: block;
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-caveat), cursive;
+  font-size: clamp(1rem, 1.9vw, 1.35rem);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(122, 21, 40, 0.88);
+  border: 1px dashed rgba(122, 21, 40, 0.28);
+  border-radius: 5px;
+  padding: 0.4rem 0.65rem 0.45rem;
+  background: rgba(255, 252, 248, 0.82);
+  background-image: radial-gradient(ellipse 120% 80% at 20% 0%, rgba(243, 217, 228, 0.22), transparent 55%);
+}
+
+/* “Coming soon” — stitched sticker feel */
+.zesira-stitched-border {
+  border: 1px solid rgba(90, 82, 74, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(255, 252, 248, 0.55) inset,
+    0 0 0 6px rgba(255, 252, 248, 0.06),
+    0 22px 55px rgba(42, 38, 34, 0.12);
 }
