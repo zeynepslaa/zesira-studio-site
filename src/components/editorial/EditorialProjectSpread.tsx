@@ -108,8 +108,17 @@ function SpreadShell({
   const { initial, whileInView, viewport, transition } = motionProps;
 
   if (trimmed) {
+    const external = /^https?:\/\//i.test(trimmed);
     return (
-      <motion.a href={trimmed} className={base} initial={initial} whileInView={whileInView} viewport={viewport} transition={transition}>
+      <motion.a
+        href={trimmed}
+        className={base}
+        initial={initial}
+        whileInView={whileInView}
+        viewport={viewport}
+        transition={transition}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         {inner}
       </motion.a>
     );

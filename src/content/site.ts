@@ -52,10 +52,11 @@ export const siteContent: SiteContent = {
     },
     {
       id: "save-file",
-      title: "Save File Project",
-      tagline: "Hand-touched saves that feel like cinema.",
-      status: "coming-soon",
+      title: "Save File Tracker",
+      tagline: "Hand-touched saves that feel like cinema — track, browse, breathe easier.",
+      status: "live",
       editorialNote: "For cinematic save files.",
+      href: "https://sims-save-file-tracker.vercel.app/",
     },
     {
       id: "cc-collections",
