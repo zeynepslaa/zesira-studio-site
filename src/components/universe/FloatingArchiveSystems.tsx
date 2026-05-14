@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { FloatingSystems } from "@/content/types";
+import { EDITORIAL_REEL_SPRING } from "@/lib/editorial-motion";
 
 export function FloatingArchiveSystems({ data }: { data: FloatingSystems }) {
   const reduce = useReducedMotion();
@@ -27,9 +28,13 @@ export function FloatingArchiveSystems({ data }: { data: FloatingSystems }) {
     <div className="pointer-events-none hidden max-w-[min(18rem,calc(100vw-2rem))] space-y-2.5 md:fixed md:bottom-8 md:left-6 md:block md:z-[38]">
       <motion.div
         className={card}
-        initial={reduce ? false : { opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
+        initial={reduce ? false : { x: -220, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{
+          delay: reduce ? 0 : 0.12,
+          opacity: { duration: reduce ? 0 : 0.32, ease: "easeOut" },
+          x: reduce ? { duration: 0 } : EDITORIAL_REEL_SPRING,
+        }}
       >
         <p className="font-display text-[8px] font-semibold uppercase tracking-[0.32em] text-[#7a6f66]">Currently rendering</p>
         <p className="mt-1.5 truncate font-serif text-[0.82rem] font-light italic text-[#5c534c]">{data.renderingLabel}</p>
@@ -42,9 +47,13 @@ export function FloatingArchiveSystems({ data }: { data: FloatingSystems }) {
 
       <motion.div
         className={card}
-        initial={reduce ? false : { opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.35 }}
+        initial={reduce ? false : { x: -240, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{
+          delay: reduce ? 0 : 0.22,
+          opacity: { duration: reduce ? 0 : 0.32, ease: "easeOut" },
+          x: reduce ? { duration: 0 } : EDITORIAL_REEL_SPRING,
+        }}
       >
         <p className="font-display text-[8px] font-semibold uppercase tracking-[0.32em] text-[#7a6f66]">{data.tonightTitle}</p>
         <ul className="mt-2 space-y-1 font-serif text-[0.78rem] font-light leading-snug text-[#5c534c]">
@@ -59,9 +68,13 @@ export function FloatingArchiveSystems({ data }: { data: FloatingSystems }) {
 
       <motion.div
         className={card}
-        initial={reduce ? false : { opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
+        initial={reduce ? false : { x: -260, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{
+          delay: reduce ? 0 : 0.32,
+          opacity: { duration: reduce ? 0 : 0.32, ease: "easeOut" },
+          x: reduce ? { duration: 0 } : EDITORIAL_REEL_SPRING,
+        }}
       >
         <p className="font-display text-[8px] font-semibold uppercase tracking-[0.32em] text-[#7a6f66]">Recently saved</p>
         <ul className="mt-1.5 space-y-0.5 font-[var(--font-caveat),cursive] text-[0.95rem] text-[#7a1528]/78">

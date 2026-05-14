@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import type { LivingArchive } from "@/content/types";
-import { CINEMATIC_EASE } from "@/lib/editorial-motion";
+import { EDITORIAL_REEL_SPRING } from "@/lib/editorial-motion";
 
 export function LivingArchiveSurface({ data }: { data: LivingArchive }) {
   const reduce = useReducedMotion();
@@ -12,18 +12,44 @@ export function LivingArchiveSurface({ data }: { data: LivingArchive }) {
   return (
     <>
       <div aria-hidden className="pointer-events-none fixed inset-0 z-[33] overflow-hidden">
-        {data.motes.map((m, i) => (
-          <motion.span
-            key={m.id}
-            className={`hand-placed-nudge absolute max-w-[13rem] rounded-sm border border-[rgba(90,82,74,0.1)] bg-[rgba(255,252,248,0.72)] px-2 py-1.5 font-display text-[7px] font-semibold uppercase leading-snug tracking-[0.24em] text-[#6a625a]/88 shadow-[0_6px_16px_rgba(42,38,34,0.05)] ${m.className}`}
-            style={{ ["--hand-rotate" as string]: `${m.rotate ?? (i % 2 === 0 ? -4 : 3)}deg` }}
-            initial={reduce ? false : { opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 1.1, delay: reduce ? 0 : 0.22 + i * 0.05, ease: CINEMATIC_EASE }}
-          >
-            {m.text}
-          </motion.span>
-        ))}
+        {data.motes.map((m, i) => {
+          const c = m.className.toLowerCase();
+          const fromRight = c.includes("right-");
+          const fromLeft = c.includes("left-");
+          const mag = 130 + (i % 4) * 24;
+          const fromX = fromRight && !fromLeft ? mag : fromLeft && !fromRight ? -mag : i % 2 === 0 ? -mag : mag;
+          return (
+            <span
+              key={m.id}
+              className={`hand-placed-nudge absolute max-w-[13rem] ${m.className}`}
+              style={{ ["--hand-rotate" as string]: `${m.rotate ?? (i % 2 === 0 ? -4 : 3)}deg` }}
+            >
+              <motion.span
+                className="inline-block rounded-sm border border-[rgba(90,82,74,0.1)] bg-[rgba(255,252,248,0.72)] px-2 py-1.5 font-display text-[7px] font-semibold uppercase leading-snug tracking-[0.24em] text-[#6a625a]/88 shadow-[0_6px_16px_rgba(42,38,34,0.05)] will-change-transform"
+                initial={reduce ? false : { x: fromX, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{
+                  delay: reduce ? 0 : 0.15 + i * 0.05,
+                  opacity: { duration: reduce ? 0 : 0.32, ease: "easeOut" },
+                  x: reduce ? { duration: 0 } : EDITORIAL_REEL_SPRING,
+                }}
+              >
+                <motion.span
+                  className="inline-block will-change-transform"
+                  animate={reduce ? undefined : { x: [0, 5, -4, 0] }}
+                  transition={{
+                    duration: 16 + (i % 5),
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: reduce ? 0 : 0.8 + i * 0.06,
+                  }}
+                >
+                  {m.text}
+                </motion.span>
+              </motion.span>
+            </span>
+          );
+        })}
       </div>
 
       {plates.length > 0 ? (
@@ -42,11 +68,15 @@ export function LivingArchiveSurface({ data }: { data: LivingArchive }) {
         {data.cards.map((c, i) => (
           <motion.article
             key={c.id}
-            className="archive-trace-paper rounded-lg border border-[rgba(90,82,74,0.13)] bg-[rgba(255,252,248,0.88)] px-3 py-2.5 shadow-[0_12px_28px_rgba(42,38,34,0.07)]"
+            className="archive-trace-paper rounded-lg border border-[rgba(90,82,74,0.13)] bg-[rgba(255,252,248,0.88)] px-3 py-2.5 shadow-[0_12px_28px_rgba(42,38,34,0.07)] will-change-transform"
             style={{ transform: `rotate(${i % 2 === 0 ? -0.65 : 0.5}deg)` }}
-            initial={reduce ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reduce ? 0 : 1, delay: reduce ? 0 : 0.28 + i * 0.09, ease: CINEMATIC_EASE }}
+            initial={reduce ? false : { x: 200 + i * 18, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{
+              delay: reduce ? 0 : 0.2 + i * 0.08,
+              opacity: { duration: reduce ? 0 : 0.35, ease: "easeOut" },
+              x: reduce ? { duration: 0 } : EDITORIAL_REEL_SPRING,
+            }}
           >
             <p className="font-display text-[7px] font-semibold uppercase tracking-[0.32em] text-[#7a1528]/78">{c.title}</p>
             <ul className="mt-1.5 space-y-1 font-serif text-[0.68rem] font-light leading-snug text-[#5c534c]/92">

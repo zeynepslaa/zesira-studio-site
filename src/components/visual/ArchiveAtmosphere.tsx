@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { useEffect } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import { ChromeSpark } from "@/components/visual/ChromeSpark";
+import { EDITORIAL_REEL_SPRING } from "@/lib/editorial-motion";
 
 const MICRO_PLACEMENTS: readonly {
   top?: string;
@@ -225,15 +226,20 @@ function SilverMicroSparkles({ reduce }: { reduce: boolean }) {
 }
 
 function ScatteredMicroNotes({ notes }: { notes: readonly string[] }) {
+  const reduce = useReducedMotion();
   if (!notes.length) return null;
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[3] overflow-hidden max-md:hidden">
       {notes.slice(0, MICRO_PLACEMENTS.length).map((note, i) => {
         const slot = MICRO_PLACEMENTS[i];
+        const fromLeft = Boolean(slot.left);
+        const fromRight = Boolean(slot.right);
+        const mag = 120 + (i % 3) * 28;
+        const fromX = fromRight && !fromLeft ? mag : fromLeft && !fromRight ? -mag : i % 2 === 0 ? -mag : mag;
         return (
           <span
             key={i}
-            className="hand-placed-nudge absolute max-w-[var(--mw,10rem)] font-[var(--font-caveat),cursive] text-[1.05rem] leading-snug text-[#7a1528]/42 md:text-[1.12rem]"
+            className="hand-placed-nudge absolute max-w-[var(--mw,10rem)]"
             style={
               {
                 ...(slot.top ? { top: slot.top } : {}),
@@ -245,7 +251,29 @@ function ScatteredMicroNotes({ notes }: { notes: readonly string[] }) {
               } as CSSProperties
             }
           >
-            {note}
+            <motion.span
+              className="inline-block font-[var(--font-caveat),cursive] text-[1.05rem] leading-snug text-[#7a1528]/42 will-change-transform md:text-[1.12rem]"
+              initial={reduce ? false : { x: fromX, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{
+                delay: reduce ? 0 : 0.18 + i * 0.07,
+                opacity: { duration: reduce ? 0 : 0.36, ease: "easeOut" },
+                x: reduce ? { duration: 0 } : EDITORIAL_REEL_SPRING,
+              }}
+            >
+              <motion.span
+                className="inline-block will-change-transform"
+                animate={reduce ? undefined : { x: [0, 5, -4, 0] }}
+                transition={{
+                  duration: 18 + (i % 4) * 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: reduce ? 0 : 1 + i * 0.08,
+                }}
+              >
+                {note}
+              </motion.span>
+            </motion.span>
           </span>
         );
       })}

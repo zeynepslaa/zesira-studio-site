@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useId, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChromeSpark } from "@/components/visual/ChromeSpark";
-import { CINEMATIC_EASE, HOVER_SNAP_EASE } from "@/lib/editorial-motion";
+import { EDITORIAL_REEL_SPRING, HOVER_SNAP_EASE } from "@/lib/editorial-motion";
 
 type ComingSoonContextValue = {
   openComingSoon: (label?: string) => void;
@@ -77,10 +77,19 @@ export function ComingSoonProvider({ children }: { children: React.ReactNode }) 
                 background:
                   "linear-gradient(168deg, rgba(255,252,248,0.98) 0%, rgba(245,236,240,0.96) 45%, rgba(235,226,218,0.94) 100%)",
               }}
-              initial={reduce ? undefined : { opacity: 0, y: 20, rotate: -2.5, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, rotate: -1.1, scale: 1 }}
-              exit={reduce ? undefined : { opacity: 0, y: 14, rotate: -0.5, scale: 0.98 }}
-              transition={{ duration: reduce ? 0 : 0.42, ease: CINEMATIC_EASE }}
+              initial={reduce ? undefined : { opacity: 0, x: "min(42vw, 22rem)", rotate: -1.8, scale: 0.96 }}
+              animate={{ opacity: 1, x: 0, rotate: -1.1, scale: 1 }}
+              exit={reduce ? undefined : { opacity: 0, x: "min(28vw, 14rem)", rotate: -0.4, scale: 0.98 }}
+              transition={
+                reduce
+                  ? { duration: 0 }
+                  : {
+                      opacity: { duration: 0.34, ease: "easeOut" },
+                      x: EDITORIAL_REEL_SPRING,
+                      rotate: { type: "spring", stiffness: 280, damping: 26, mass: 0.65 },
+                      scale: { type: "spring", stiffness: 280, damping: 26, mass: 0.65 },
+                    }
+              }
             >
               <span
                 aria-hidden
