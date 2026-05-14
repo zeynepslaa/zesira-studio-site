@@ -3,7 +3,7 @@
 import { useRef, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-const strength = 0.11;
+const strength = 0.16;
 
 export function MagneticHover({
   children,
@@ -15,8 +15,8 @@ export function MagneticHover({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 420, damping: 28, mass: 0.08 });
-  const sy = useSpring(y, { stiffness: 420, damping: 28, mass: 0.08 });
+  const sx = useSpring(x, { stiffness: 720, damping: 22, mass: 0.06 });
+  const sy = useSpring(y, { stiffness: 720, damping: 22, mass: 0.06 });
 
   function onMove(e: React.MouseEvent) {
     const el = ref.current;

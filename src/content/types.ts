@@ -183,6 +183,8 @@ export type SiteContent = {
   nav: NavItem[];
   hero: {
     subtitle: string;
+    /** Floating hero margin phrases — short, tilted scraps */
+    scrapPhrases?: string[];
   };
   featuredProjects: ProjectItem[];
   about: {

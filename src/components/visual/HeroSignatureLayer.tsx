@@ -2,14 +2,36 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ChromeSpark } from "@/components/visual/ChromeSpark";
+import { EditorialPlumbobMark } from "@/components/visual/EditorialPlumbobMark";
+import { EditorialChromeButterfly } from "@/components/visual/EditorialChromeButterfly";
 
-/** Dense cover atmosphere — leopard, flash, tape, stickers, chrome dust */
+/** Dense cover atmosphere — leopard plumbob, flash, tape, chrome, butterflies */
 export function HeroSignatureLayer() {
   const reduce = useReducedMotion();
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 z-[2] overflow-hidden">
       {/* Subtle leopard — fashion archive, very low contrast */}
+      <EditorialPlumbobMark className="absolute right-[2%] top-[10%] z-[3] opacity-[0.92] md:right-[4%] md:top-[8%]" />
+
+      <div className="absolute right-[14%] top-[38%] z-[3] hidden opacity-80 md:block">
+        <EditorialChromeButterfly size={46} />
+      </div>
+      <div className="absolute bottom-[22%] left-[10%] z-[3] hidden opacity-70 lg:block">
+        <EditorialChromeButterfly size={38} />
+      </div>
+
+      {/* Red tape — editorial label */}
+      <div
+        className="hand-placed-nudge absolute left-[8%] top-[48%] z-[3] hidden md:block"
+        style={{ ["--hand-rotate" as string]: "-9deg" }}
+      >
+        <div className="rounded-sm border border-[rgba(90,15,28,0.35)] bg-[linear-gradient(180deg,#9b1b2f_0%,#6d0f1f_100%)] px-3 py-1.5 shadow-[0_10px_26px_rgba(42,38,34,0.18)]">
+          <p className="font-display text-[6px] font-semibold uppercase tracking-[0.42em] text-[#fff5f0]/95">issue</p>
+          <p className="mt-0.5 font-display text-[11px] font-semibold uppercase tracking-[0.28em] text-white">no. 001</p>
+        </div>
+      </div>
+
       <div
         className="absolute inset-0 opacity-[0.07] mix-blend-multiply"
         style={{

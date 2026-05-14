@@ -17,8 +17,8 @@ export function UniverseRibbonLayer({ ribbons }: { ribbons: UniverseRibbon[] }) 
           initial={reduce ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            duration: reduce ? 0 : 1.15,
-            delay: reduce ? 0 : 0.08 + (i % 7) * 0.06,
+            duration: reduce ? 0 : 0.72,
+            delay: reduce ? 0 : 0.05 + (i % 7) * 0.04,
             ease: CINEMATIC_EASE,
           }}
         >

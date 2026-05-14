@@ -67,12 +67,17 @@ export function HomeExperience({ content }: { content: SiteContent }) {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: introDone ? 1 : 0 }}
-        transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.78, ease: [0.22, 1, 0.36, 1] }}
         aria-hidden={!introDone}
         className={!introDone ? "pointer-events-none relative z-10" : "relative z-10"}
       >
         <main id="main">
-          <HeroSection brand={content.brand.name} subtitle={content.hero.subtitle} heroAside={w.heroAside} />
+          <HeroSection
+            brand={content.brand.name}
+            subtitle={content.hero.subtitle}
+            heroAside={w.heroAside}
+            scrapPhrases={content.hero.scrapPhrases}
+          />
           <CurrentHouseholdSection data={content.household} />
           <FeaturedProjectsSection projects={content.featuredProjects} />
           <EditorialInterlude text={w.betweenProjectsAndAbout} rhythm={0} />

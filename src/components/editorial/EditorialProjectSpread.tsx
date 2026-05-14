@@ -141,7 +141,7 @@ const STILL_CAPTIONS = [
   "Paused CAS — chrome on the eyelash curve",
   "Build mode — ribbon tucked, bloom soft",
   "Live mode hush — HUD off, vignette on",
-  "Neighborhood dusk — draw distance as mood",
+  "Exterior dusk pass — draw distance as mood",
   "Wardrobe test — fabric reads before gameplay",
   "Save thumbnail — cropped like a tear sheet",
 ];

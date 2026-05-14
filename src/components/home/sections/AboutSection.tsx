@@ -23,7 +23,7 @@ export function AboutSection({ eyebrow, paragraphs }: { eyebrow: string; paragra
           className="hand-placed-nudge absolute right-[8%] top-[14%] hidden max-w-[11rem] font-serif text-[0.78rem] font-light italic leading-relaxed text-[#7a1528]/35 md:block"
           style={{ ["--hand-rotate" as string]: "4deg" }}
         >
-          gloss, grain, and type — atmosphere before plot
+          gloss, grain, chrome butterflies — atmosphere before apology
         </span>
       </div>
       <div className="relative mx-auto max-w-7xl px-6 md:px-10">

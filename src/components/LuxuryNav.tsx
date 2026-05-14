@@ -49,8 +49,8 @@ export function LuxuryNav({ items, brand }: { items: NavItem[]; brand: string })
             <motion.a
               key={item.href}
               href={item.href}
-              whileHover={reduce ? undefined : { y: -1, opacity: 0.94 }}
-              transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+              whileHover={reduce ? undefined : { y: -2, opacity: 0.92 }}
+              transition={{ duration: 0.12, ease: [0.28, 0.12, 0.22, 1] }}
               className="nav-editorial-link text-[10px] font-semibold uppercase tracking-[0.28em] text-[#5c534c]"
             >
               {item.label}
