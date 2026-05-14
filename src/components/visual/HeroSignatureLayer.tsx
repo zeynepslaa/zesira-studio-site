@@ -23,7 +23,7 @@ export function HeroSignatureLayer() {
 
       {/* Red tape — editorial label */}
       <div
-        className="hand-placed-nudge absolute left-[8%] top-[48%] z-[3] hidden md:block"
+        className="hand-placed-nudge absolute bottom-[22%] left-[8%] z-[3] hidden md:block"
         style={{ ["--hand-rotate" as string]: "-9deg" }}
       >
         <div className="rounded-sm border border-[rgba(90,15,28,0.35)] bg-[linear-gradient(180deg,#9b1b2f_0%,#6d0f1f_100%)] px-3 py-1.5 shadow-[0_10px_26px_rgba(42,38,34,0.18)]">

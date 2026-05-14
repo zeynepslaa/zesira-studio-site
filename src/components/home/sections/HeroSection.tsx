@@ -173,51 +173,38 @@ export function HeroSection({
               </div>
             </div>
 
-            {/* Floating scraps from site.ts */}
+            {/* Margin quotes — document flow so they never stack on each other */}
             {scrapPhrases.length > 0 ? (
-              <div className="relative mt-8 hidden min-h-[4.5rem] md:block" aria-hidden>
-                {scrapPhrases.slice(0, 4).map((phrase, i) => {
-                  const positions: { left: string; top: string }[] = [
-                    { left: "0%", top: "0" },
-                    { left: "22%", top: "18px" },
-                    { left: "48%", top: "4px" },
-                    { left: "68%", top: "26px" },
-                  ];
-                  const pos = positions[i] ?? positions[0];
-                  return (
-                    <motion.span
-                      key={`${phrase}-${i}`}
-                      className="hand-placed-nudge absolute inline-block max-w-[14rem] rounded-sm border border-[rgba(122,21,40,0.2)] bg-[rgba(255,252,248,0.78)] px-2 py-1.5 font-[var(--font-caveat),cursive] text-[0.92rem] leading-snug text-[#5c534c]/92 shadow-[0_12px_32px_rgba(42,38,34,0.08)]"
-                      style={{
-                        ["--hand-rotate" as string]: `${-7 + i * 6}deg`,
-                        left: pos.left,
-                        top: pos.top,
-                      }}
-                      initial={reduce ? false : { opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: reduce ? 0 : 0.48 + i * 0.07, duration: 0.52, ease: SNAP }}
-                    >
-                      {phrase}
-                    </motion.span>
-                  );
-                })}
+              <div className="mt-8 hidden max-w-[min(100%,26rem)] flex-col gap-3 md:flex" aria-hidden>
+                {scrapPhrases.slice(0, 4).map((phrase, i) => (
+                  <motion.span
+                    key={`${phrase}-${i}`}
+                    className="hand-placed-nudge inline-block max-w-full rounded-sm border border-[rgba(122,21,40,0.2)] bg-[rgba(255,252,248,0.78)] px-2.5 py-1.5 font-[var(--font-caveat),cursive] text-[0.92rem] leading-snug text-[#5c534c]/92 shadow-[0_12px_32px_rgba(42,38,34,0.08)]"
+                    style={{ ["--hand-rotate" as string]: `${-5 + i * 4}deg` }}
+                    initial={reduce ? false : { opacity: 0, x: i % 2 === 0 ? -16 : 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: reduce ? 0 : 0.35 + i * 0.08, duration: 0.5, ease: SNAP }}
+                  >
+                    {phrase}
+                  </motion.span>
+                ))}
               </div>
             ) : null}
 
-            <motion.p
-              className="pointer-events-none absolute left-[min(72%,28rem)] top-[36%] z-40 hidden max-w-[12rem] rotate-[-4deg] md:block"
-              initial={reduce ? false : { opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: reduce ? 0 : 0.58, duration: 0.5, ease: SNAP }}
+            <motion.div
+              className="mt-5 hidden max-w-md md:block"
+              initial={reduce ? false : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: reduce ? 0 : 0.55, duration: 0.5, ease: SNAP }}
               aria-hidden
             >
-              <span className="block rounded-sm border border-[rgba(122,21,40,0.24)] bg-[rgba(255,252,248,0.9)] px-2.5 py-2 font-[var(--font-caveat),cursive] text-[1.08rem] leading-snug text-[#7a1528]/88 shadow-[0_16px_40px_rgba(42,38,34,0.12)]">
+              <span className="inline-block rounded-sm border border-[rgba(122,21,40,0.24)] bg-[rgba(255,252,248,0.9)] px-2.5 py-2 font-[var(--font-caveat),cursive] text-[1.05rem] leading-snug text-[#7a1528]/88 shadow-[0_16px_40px_rgba(42,38,34,0.12)]">
                 girlhood archive — open in another tab
               </span>
-            </motion.p>
+            </motion.div>
 
             <motion.p
-              className="mt-10 max-w-xl text-base font-light leading-relaxed text-[#5c534c] md:mt-[4.5rem] md:max-w-lg md:text-lg"
+              className="mt-10 max-w-xl text-base font-light leading-relaxed text-[#5c534c] md:mt-10 md:max-w-lg md:text-lg"
               initial={reduce ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: reduce ? 0 : 0.95, delay: reduce ? 0 : 0.32, ease: CINEMATIC_EASE }}

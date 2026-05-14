@@ -14,14 +14,14 @@ const MICRO_PLACEMENTS: readonly {
   rotate: number;
   maxW: string;
 }[] = [
-  { top: "12%", left: "2%", rotate: -2.4, maxW: "9rem" },
-  { top: "26%", right: "3%", rotate: 1.8, maxW: "8rem" },
-  { top: "48%", left: "5%", rotate: -1.2, maxW: "10rem" },
-  { top: "61%", right: "6%", rotate: 2.2, maxW: "8.5rem" },
-  { bottom: "28%", left: "4%", rotate: -1.6, maxW: "9rem" },
-  { bottom: "14%", right: "5%", rotate: 1.4, maxW: "8rem" },
-  { top: "74%", left: "12%", rotate: -2.1, maxW: "7rem" },
-  { top: "33%", left: "18%", rotate: 0.9, maxW: "7.5rem" },
+  { top: "10%", left: "2%", rotate: -2.4, maxW: "9rem" },
+  { top: "28%", right: "4%", rotate: 1.8, maxW: "8rem" },
+  { top: "52%", left: "4%", rotate: -1.2, maxW: "10rem" },
+  { top: "66%", right: "7%", rotate: 2.2, maxW: "8.5rem" },
+  { bottom: "32%", left: "4%", rotate: -1.6, maxW: "9rem" },
+  { bottom: "12%", right: "6%", rotate: 1.4, maxW: "8rem" },
+  { top: "78%", left: "10%", rotate: -2.1, maxW: "7rem" },
+  { top: "40%", left: "16%", rotate: 0.9, maxW: "7.5rem" },
 ];
 
 const POLAROIDS: readonly {
