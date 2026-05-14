@@ -3,7 +3,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { CinematicBackdrop } from "@/components/visual/CinematicBackdrop";
 import { ChromeSpark } from "@/components/visual/ChromeSpark";
-import { EditorialPlumbobMark } from "@/components/visual/EditorialPlumbobMark";
 import { EditorialStillLife } from "@/components/visual/EditorialStillLife";
 import { HeroSignatureLayer } from "@/components/visual/HeroSignatureLayer";
 import { MagneticHover } from "@/components/interaction/MagneticHover";
@@ -30,8 +29,6 @@ export function HeroSection({
     >
       <CinematicBackdrop />
       <HeroSignatureLayer />
-      <EditorialPlumbobMark className="absolute right-[2%] top-[10%] z-[6] hidden lg:right-[5%] lg:top-[12%] lg:block" />
-      <EditorialPlumbobMark className="absolute right-1 top-[9%] z-[6] scale-[0.52] lg:hidden" />
 
       <div className="pointer-events-none absolute left-[2%] top-[22%] z-[4] hidden select-none md:block" aria-hidden>
         <p className="editorial-watermark-xl text-[clamp(5rem,22vw,14rem)]">01</p>
